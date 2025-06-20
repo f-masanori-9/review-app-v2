@@ -1,0 +1,137 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/prisma-client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Auth0User {
+  sub                 String               @unique
+  Auth0ToUserRelation Auth0ToUserRelation?
+
+  createdAt DateTime @default(now())
+}
+
+model User {
+  id    String  @id @default(cuid())
+  name  String?
+  email String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  VocabularyNote            VocabularyNote[]
+  VocabularyNoteReviewLog   VocabularyNoteReviewLog[]
+  Tag                       Tag[]
+  NoteToTagRelations        NoteToTagRelation[]
+  SharedVNoteToUserRelation SharedVNoteToUserRelation[]
+  friendUsers               UserFriendShip[]            @relation("friendUser")
+  UserFriendShip            UserFriendShip[]
+  Auth0ToUserRelation       Auth0ToUserRelation?
+}
+
+model Auth0ToUserRelation {
+  id        String    @id @default(cuid())
+  sub       String    @unique
+  auth0User Auth0User @relation(fields: [sub], references: [sub], onDelete: Cascade)
+  userId    String    @unique
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([sub, userId])
+}
+
+model UserFriendShip {
+  id        String   @id @default(cuid())
+  userId    String
+  friendId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Friend User @relation("friendUser", fields: [friendId], references: [id], onDelete: Cascade)
+  User   User @relation(fields: [userId], references: [id])
+
+  @@unique([userId, friendId])
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model VocabularyNote {
+  id                        String                      @id @default(cuid())
+  userId                    String
+  user                      User                        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  frontContent              String
+  backContent               String
+  createdAt                 DateTime                    @default(now())
+  updatedAt                 DateTime                    @default(now())
+  vocabularyNoteReviewLogs  VocabularyNoteReviewLog[]
+  NoteToTagRelations        NoteToTagRelation[]
+  SharedVNoteToUserRelation SharedVNoteToUserRelation[]
+
+  @@index([userId])
+}
+
+model SharedVNoteToUserRelation {
+  id               String         @id @default(cuid())
+  sharedUserId     String
+  sharedUser       User           @relation(fields: [sharedUserId], references: [id], onDelete: Cascade)
+  vocabularyNoteId String
+  vocabularyNote   VocabularyNote @relation(fields: [vocabularyNoteId], references: [id], onDelete: Cascade)
+  createdAt        DateTime       @default(now())
+
+  @@index([sharedUserId])
+}
+
+model VocabularyNoteReviewLog {
+  id               String         @id @default(cuid())
+  userId           String
+  user             User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  vocabularyNoteId String
+  vocabularyNote   VocabularyNote @relation(fields: [vocabularyNoteId], references: [id], onDelete: Cascade)
+  createdAt        DateTime       @default(now())
+
+  @@index([userId])
+}
+
+model Tag {
+  id   String @id @default(cuid())
+  name String @unique
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  order  Int
+
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @default(now())
+  NoteToTagRelations NoteToTagRelation[]
+}
+
+model NoteToTagRelation {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  tagId            String
+  tag              Tag            @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  vocabularyNoteId String
+  vocabularyNote   VocabularyNote @relation(fields: [vocabularyNoteId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+}

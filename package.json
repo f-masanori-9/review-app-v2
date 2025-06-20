@@ -4,5 +4,15 @@
   "workspaces": [
     "packages/*"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "dev": "concurrently \"yarn workspace backend dev\" \"yarn workspace front dev\"",
+    "build": "yarn workspace backend build && yarn workspace front build",
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
+    "backend": "yarn workspace backend",
+    "front": "yarn workspace front"
+  },
+  "dependencies": {
+    "concurrently": "^9.1.2"
+  }
 }

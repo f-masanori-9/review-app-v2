@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "skipLibCheck": false, // node_modulesの型チェックを行う
+    "declaration": true, // 型を書き出す
+    "emitDeclarationOnly": true, // JS は捨てて .d.ts だけ
+    "outDir": "../../packages/front/src/_gen/types"
+  }
+}

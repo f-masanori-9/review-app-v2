@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "forceConsistentCasingInFileNames": true, // ファイル名の大文字小文字の整合性
+    "strict": true, // 厳格な型チェック
+    "skipLibCheck": true, // node_modulesの型チェックをスキップ
+    "resolveJsonModule": true, // JSONファイルのimportを許可
+    "isolatedModules": true // 単一ファイルでも型チェックできるように
+  }
+}
