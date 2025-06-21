@@ -3648,9 +3648,9 @@ __metadata:
     cors: "npm:^2.8.5"
     dotenv: "npm:^16.5.0"
     express: "npm:^5.1.0"
-    jose: "npm:^6.0.11"
+    jose: "npm:4.11.4"
     prisma: "npm:^6.9.0"
-    superjson: "npm:^2.2.2"
+    superjson: "npm:1.9.0"
     tsx: "npm:^4.19.4"
     typescript: "npm:^5.8.3"
     zod: "npm:^3.24.4"
@@ -6287,6 +6287,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jose@npm:4.11.4":
+  version: 4.11.4
+  resolution: "jose@npm:4.11.4"
+  checksum: 10c0/b5f64a5d5c90bb9a02d7af7a1db4123e2816ebc36683618a9953a57f4e5ee310f5472741a5de9c159988a68c14d59d10ce10b3f4655932c9ca30a54fa07f9d62
+  languageName: node
+  linkType: hard
+
 "jose@npm:^5.9.6":
   version: 5.10.0
   resolution: "jose@npm:5.10.0"
@@ -8758,6 +8765,15 @@ __metadata:
     sucrase: bin/sucrase
     sucrase-node: bin/sucrase-node
   checksum: 10c0/ac85f3359d2c2ecbf5febca6a24ae9bf96c931f05fde533c22a94f59c6a74895e5d5f0e871878dfd59c2697a75ebb04e4b2224ef0bfc24ca1210735c2ec191ef
+  languageName: node
+  linkType: hard
+
+"superjson@npm:1.9.0":
+  version: 1.9.0
+  resolution: "superjson@npm:1.9.0"
+  dependencies:
+    copy-anything: "npm:^3.0.2"
+  checksum: 10c0/98dbe3a6fe50840c952c48862e365381c1703cc7d04a58fc518f49286b5efcc8118cb34fd8f24b017665f08e91d538cc92f42e252496cf5f396c741f0f8cf520
   languageName: node
   linkType: hard
 
