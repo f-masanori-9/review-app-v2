@@ -3,7 +3,7 @@ name: deploy-github-actions
 on:
   push:
     branches:
-      - master
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest # 実行環境の設定
