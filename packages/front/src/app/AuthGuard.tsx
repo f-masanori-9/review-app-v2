@@ -1,12 +1,12 @@
 "use client";
 
 import { Loading } from "@/components/Loading";
+import { useUser } from "@auth0/nextjs-auth0";
 import { usePathname, useRouter } from "next/navigation";
 import { ReactNode, useEffect } from "react";
-import { useUser } from "@auth0/nextjs-auth0";
 
 export const AuthGuard = ({ children }: { children: ReactNode }) => {
-  const { user, isLoading, error } = useUser();
+  const { user, isLoading } = useUser();
   const router = useRouter();
   const pathname = usePathname();
 

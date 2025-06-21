@@ -1,10 +1,10 @@
 "use client";
 
-import { Loading } from "@/components/Loading";
-import React, { FC, Fragment, useState } from "react";
-import { useTags } from "@/hooks/tag/useTags";
-import { useCreateTag } from "@/hooks/tag/useCreateTag";
 import { Button } from "@/components/Buttons/Button";
+import { Loading } from "@/components/Loading";
+import { useCreateTag } from "@/hooks/tag/useCreateTag";
+import { useDeleteTag } from "@/hooks/tag/useDeleteTag";
+import { useTags } from "@/hooks/tag/useTags";
 import {
   Description,
   Dialog,
@@ -13,7 +13,7 @@ import {
   Textarea,
   Transition,
 } from "@headlessui/react";
-import { useDeleteTag } from "@/hooks/tag/useDeleteTag";
+import { FC, Fragment, useState } from "react";
 
 export default function Page() {
   const { data: tags = [], isLoading } = useTags();

@@ -1,8 +1,8 @@
 "use client";
 
+import { useUser } from "@auth0/nextjs-auth0";
 import { usePathname, useRouter } from "next/navigation";
 import { MdOutlineAccountCircle } from "react-icons/md";
-import { useUser } from "@auth0/nextjs-auth0";
 
 export const Header = () => {
   const pathName = usePathname();

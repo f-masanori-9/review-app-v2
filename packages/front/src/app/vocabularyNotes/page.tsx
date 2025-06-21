@@ -1,12 +1,15 @@
 "use client";
 
 import { Loading } from "@/components/Loading";
-import React, { FC, Fragment, useCallback, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import React, { FC, Fragment, useCallback, useMemo, useState } from "react";
 
-import { useVocabularyNotes } from "@/hooks/vocabularyNote/useVocabularyNotes";
-import { EditVocabularyNoteDialogCore } from "./EditVocabularyNoteDialog";
 import { Button } from "@/components/Buttons/Button";
+import { CreatableAutoComplete } from "@/components/CreatableAutoComplete";
+import { useCreateTag } from "@/hooks/tag/useCreateTag";
+import { useMutateTags, useTags } from "@/hooks/tag/useTags";
+import { useAddVocabularyNote } from "@/hooks/vocabularyNote/useAddVocabularyNote";
+import { useVocabularyNotes } from "@/hooks/vocabularyNote/useVocabularyNotes";
 import {
   Description,
   Dialog,
@@ -15,14 +18,11 @@ import {
   Textarea,
   Transition,
 } from "@headlessui/react";
-import { useCreateTag } from "@/hooks/tag/useCreateTag";
-import { useMutateTags, useTags } from "@/hooks/tag/useTags";
-import { CreatableAutoComplete } from "@/components/CreatableAutoComplete";
+import { Box, Stack } from "@mui/material";
 import { intersection } from "lodash";
 import { FaPlay } from "react-icons/fa";
 import { OneVocabularyNote } from "./_components/OneVocabularyNote/OneVocabularyNote";
-import { Box, Stack } from "@mui/material";
-import { useAddVocabularyNote } from "@/hooks/vocabularyNote/useAddVocabularyNote";
+import { EditVocabularyNoteDialogCore } from "./EditVocabularyNoteDialog";
 
 export default function Page() {
   const { data: vocabularyNotes = [], isLoading } = useVocabularyNotes();

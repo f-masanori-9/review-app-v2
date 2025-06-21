@@ -1,16 +1,15 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import React from "react";
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
-import { Roboto } from "next/font/google";
-import { ThemeProvider } from "@mui/material/styles";
-import theme from "./theme";
 import { auth0 } from "@/libs/auth0";
 import { Auth0Provider } from "@auth0/nextjs-auth0";
-import { Header } from "./header";
-import { Footer } from "./footer";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
+import { ThemeProvider } from "@mui/material/styles";
+import type { Metadata } from "next";
+import { Geist, Geist_Mono, Roboto } from "next/font/google";
+import React from "react";
 import { AuthGuard } from "./AuthGuard";
+import { Footer } from "./footer";
+import "./globals.css";
+import { Header } from "./header";
+import theme from "./theme";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],

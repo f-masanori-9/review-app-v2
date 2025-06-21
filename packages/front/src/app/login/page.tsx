@@ -1,9 +1,9 @@
 "use client";
-import React, { FC, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
-import { useRouter } from "next/navigation";
 import { Loading } from "@/components/Loading";
 import { useUser } from "@auth0/nextjs-auth0";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
   const { user } = useUser();
