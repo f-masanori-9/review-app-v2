@@ -10,7 +10,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:3000", // ローカル開発時
-      // TODO: 本番環境のURLを追加
+      "https://review-app-v2-front.vercel.app", //  本番環境
     ],
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     allowedHeaders: ["Content-Type", "Authorization"],

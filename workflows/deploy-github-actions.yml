@@ -1,0 +1,22 @@
+name: deploy-github-actions
+# トリガーの設定
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest # 実行環境の設定
+    steps:
+      - name: ssh and deploy
+        uses: appleboy/ssh-action@master # １
+        with: # 2 アクションの入力パラメータを指定
+          host: ${{ secrets.SSH_HOST }} # ホスト名
+          username: ${{ secrets.SSH_USERNAME }} # SSH ユーザ名
+          key: ${{ secrets.SSH_PRIVATE_KEY }} # 秘密鍵の内容
+          port: ${{ secrets.SSH_PORT }} # ポート番号
+          debug: true
+          script: |
+            cd /root/review-app-v2
+            git checkout main
+            git pull origin main
