@@ -1,13 +1,14 @@
-import useSWR, { mutate } from "swr";
-import { useCallback, useState } from "react";
 import { tRPCClient } from "@/libs/tRPCClient";
+import { useCallback, useState } from "react";
+import useSWR, { mutate } from "swr";
 
 export const generateSWRKey = () => {
   return {
     path: "vocabulary-notes",
   } as const;
 };
-export const fetcher = async ({ path }: { path: "vocabulary-notes" }) => {
+
+export const fetcher = async ({}: { path: "vocabulary-notes" }) => {
   const { vocabularyNotes } =
     await tRPCClient.vocabularyNotes.getVocabularyNotes.query({});
 

@@ -29,7 +29,7 @@ export const auth0 = new Auth0Client({
 
     const sub = session?.user?.sub;
     if (sub) {
-      const { userId } = await tRPCClient.afterAuth0Authentication.mutate({
+      await tRPCClient.afterAuth0Authentication.mutate({
         auth0_sub: sub,
         name: session?.user?.name,
         email: session?.user?.email,

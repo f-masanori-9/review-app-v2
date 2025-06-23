@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 
 export default function Login() {
   const { user } = useUser();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading] = useState(false);
 
   if (user || isLoading) {
     return <Loading />;

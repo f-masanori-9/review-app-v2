@@ -3,7 +3,6 @@
 import { Loading } from "@/components/Loading";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
-import { ReviewButton } from "@/components/Buttons/ReviewButton";
 import { useVocabularyNotes } from "@/hooks/vocabularyNote/useVocabularyNotes";
 import { debounce } from "lodash";
 import { useSearchParams } from "next/navigation";
@@ -98,23 +97,3 @@ export default function Page() {
     </div>
   );
 }
-
-const CardHeader: React.FC<{
-  onClickReviewButton: (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => void;
-  allCardsCount: number;
-  cardOrder: number;
-  reviewCount: number;
-}> = ({ onClickReviewButton, allCardsCount, cardOrder, reviewCount }) => {
-  return (
-    <div className="flex justify-between items-center">
-      <div className="flex items-center gap-2 text-gray-500">
-        <ReviewButton onClick={onClickReviewButton} reviewCount={reviewCount} />
-      </div>
-      <div className="text-gray-500 text-lg">
-        {cardOrder} / {allCardsCount}
-      </div>
-    </div>
-  );
-};

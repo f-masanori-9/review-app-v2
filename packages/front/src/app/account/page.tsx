@@ -3,7 +3,7 @@
 import { useUser } from "@auth0/nextjs-auth0";
 
 export default function Account() {
-  const { user, isLoading, error } = useUser();
+  const { user } = useUser();
 
   return (
     <main className="flex-1 p-6">

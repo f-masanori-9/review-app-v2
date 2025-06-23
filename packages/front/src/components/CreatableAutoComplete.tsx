@@ -1,3 +1,4 @@
+import { FC, KeyboardEventHandler, useCallback, useState } from "react";
 import {
   ActionMeta,
   components,
@@ -6,7 +7,6 @@ import {
   StylesConfig,
 } from "react-select";
 import CreatableSelect from "react-select/creatable";
-import { FC, KeyboardEventHandler, useCallback, useState } from "react";
 import { Button } from "./Buttons/Button";
 
 export interface AutoCompleteOption {
@@ -131,7 +131,7 @@ export const CreatableAutoComplete: FC<Props> = ({
         break;
       default: {
         const _exhaustiveCheck: never = actionMeta;
-        break;
+        return _exhaustiveCheck; // ここでエラーが出ると、actionMetaの型が網羅されていないことを示す
       }
     }
   };

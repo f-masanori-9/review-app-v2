@@ -3,15 +3,15 @@
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { useReward } from "react-rewards";
 
-import { differenceInDays } from "date-fns";
-import { useUpdateVocabularyNoteDebounced } from "@/hooks/useUpdateVocabularyNoteDebounced";
 import { useAddVocabularyNoteReview } from "@/hooks/useAddVocabularyNoteReview";
+import { useUpdateVocabularyNoteDebounced } from "@/hooks/useUpdateVocabularyNoteDebounced";
 import { useDeleteVocabularyNote } from "@/hooks/vocabularyNote/useDeleteVocabularyNote";
 import { useMutateVocabularyNotes } from "@/hooks/vocabularyNote/useVocabularyNotes";
-import { Header } from "./header/Header";
-import { Footer } from "./footer/Footer";
 import { Menu, MenuItem, Stack } from "@mui/material";
+import { differenceInDays } from "date-fns";
 import { Content } from "./content/Content";
+import { Footer } from "./footer/Footer";
+import { Header } from "./header/Header";
 
 export const OneVocabularyNote: FC<{
   note: {
@@ -145,27 +145,3 @@ const getReviewOpacity = (count: number): number => {
     maxOpacity
   );
 };
-
-const bgColorClass = [
-  `bg-blue-300/0`,
-  `bg-blue-300/5`,
-  `bg-blue-300/10`,
-  `bg-blue-300/15`,
-  `bg-blue-300/20`,
-  `bg-blue-300/25`,
-  `bg-blue-300/30`,
-  `bg-blue-300/35`,
-  `bg-blue-300/40`,
-  `bg-blue-300/45`,
-  `bg-blue-300/50`,
-  `bg-blue-300/55`,
-  `bg-blue-300/60`,
-  `bg-blue-300/65`,
-  `bg-blue-300/70`,
-  `bg-blue-300/75`,
-  `bg-blue-300/80`,
-  `bg-blue-300/85`,
-  `bg-blue-300/90`,
-  `bg-blue-300/95`,
-  `bg-blue-300/100`,
-] as const;

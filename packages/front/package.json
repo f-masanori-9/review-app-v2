@@ -25,6 +25,7 @@
     "@trpc/client": "^11.4.0",
     "@trpc/server": "^11.4.0",
     "@types/lodash": "^4.17.15",
+    "@virtuoso.dev/message-list": "^1.12.3",
     "date-fns": "^4.1.0",
     "flowbite-react": "^0.11.7",
     "jose": "^6.0.11",
@@ -40,6 +41,7 @@
     "react-query": "3",
     "react-rewards": "^2.1.0",
     "react-select": "^5.10.1",
+    "react-virtuoso": "^4.13.0",
     "superjson": "^2.2.2",
     "swr": "^2.3.0",
     "zod": "^3.25.63"
