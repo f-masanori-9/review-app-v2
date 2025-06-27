@@ -6,7 +6,7 @@ import { FC } from "react";
 
 export const Footer: FC = () => {
   const router = useRouter();
-  const user = useUser();
+  const { user } = useUser();
 
   const onClickToVocabularyNotes = () => {
     router.push("/vocabularyNotes");

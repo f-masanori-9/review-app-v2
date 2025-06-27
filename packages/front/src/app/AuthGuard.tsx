@@ -12,13 +12,13 @@ export const AuthGuard = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     if (pathname === "/") return;
-    if (pathname === "/login") return;
+    if (pathname == "/login") return;
 
     if (isLoading) return;
     if (!user) {
       router.push("/");
     }
-  }, [user, router, pathname]);
+  }, [user, router, pathname, isLoading]);
 
   if (isLoading) return <Loading />;
 

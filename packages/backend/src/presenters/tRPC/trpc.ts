@@ -2,6 +2,7 @@ import { initTRPC, TRPCError } from "@trpc/server";
 import { CreateExpressContextOptions } from "@trpc/server/adapters/express";
 import { createRemoteJWKSet, jwtVerify } from "jose";
 import superjson from "superjson";
+import { logger } from "../../config/logger";
 import { prismaClient } from "../../infra/prismaClient";
 import { NoteToTagRelationRepository } from "../../repositories/NoteToTagRelationRepository";
 import { UserRepository } from "../../repositories/UserRepository";
@@ -28,6 +29,8 @@ export const createContext = async (opts: CreateExpressContextOptions) => {
   };
 };
 
+// TODO: 環境変数化
+// TODO: リファクタリング
 const AUTH0_DOMAIN = "https://f-masanori.jp.auth0.com";
 const AUTH0_AUDIENCE = "https://f-masanori.jp.auth0.com/api/v2/";
 
@@ -43,10 +46,9 @@ export async function verifyIdToken(idToken: string) {
       audience: AUTH0_AUDIENCE,
     });
 
-    console.log("✅ 検証成功:", payload);
     return payload;
   } catch (err) {
-    console.error("❌ IDトークンの検証失敗:", err);
+    logger.error("❌ IDトークンの検証失敗:", err);
     throw new Error("Invalid ID token");
   }
 }

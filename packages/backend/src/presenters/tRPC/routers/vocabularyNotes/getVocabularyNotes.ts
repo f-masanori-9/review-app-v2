@@ -1,7 +1,7 @@
 import { z } from "zod";
 
-import { authRequiredProcedure } from "../../trpc";
 import { VocabularyNoteRepository } from "../../../../repositories/VocabularyNoteRepository";
+import { authRequiredProcedure } from "../../trpc";
 
 const inputSchema = z.object({});
 
@@ -37,10 +37,9 @@ const outputSchema = z.object({
 export const getVocabularyNotes = authRequiredProcedure
   .input(inputSchema)
   .output(outputSchema)
-  .query(async ({ input, ctx }) => {
+  .query(async ({ ctx }) => {
     const user = ctx.user;
     const vocabularyNoteRepository = new VocabularyNoteRepository(ctx.dbClient);
-
     const vocabularyNotes = await vocabularyNoteRepository.findByUserId({
       userId: user.id,
     });

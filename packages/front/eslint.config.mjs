@@ -23,6 +23,24 @@ const eslintConfig = [
       "react-hooks/exhaustive-deps": "warn",
     },
   },
+  {
+    files: ["**/*.{js,jsx,ts,tsx}"],
+    rules: {
+      "react-hooks/exhaustive-deps": "warn",
+    },
+  },
+  {
+    ignores: [
+      "**/node_modules/**",
+      "**/dist/**",
+      "**/build/**",
+      "**/coverage/**",
+      "**/.next/**",
+      "**/out/**",
+      "**/public/**",
+      "**/src/_gen/**",
+    ],
+  },
 ];
 
 export default eslintConfig;

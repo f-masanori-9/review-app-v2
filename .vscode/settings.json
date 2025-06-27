@@ -17,10 +17,7 @@
     "typescript",
     "typescriptreact"
   ],
-  "eslint.workingDirectories": [
-    ".",
-    "packages/front"
-  ],
+  "eslint.workingDirectories": [".", "packages/front", "packages/backend"],
   "eslint.useFlatConfig": true,
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
