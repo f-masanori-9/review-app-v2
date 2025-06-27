@@ -1,7 +1,8 @@
 import { z } from "zod";
 
-import { baseProcedure } from "../trpc";
+import { PrismaClient } from "@prisma/client";
 import { randomUUID } from "crypto";
+import { baseProcedure } from "../trpc";
 
 const inputSchema = z.object({
   auth0_sub: z.string(),
@@ -13,6 +14,91 @@ const outputSchema = z.object({
   userId: z.string(),
 });
 
+const createSampleData = async (userId: string, dbClient: PrismaClient) => {
+  // Create sample tags
+  const basicTag = await dbClient.tag.create({
+    data: {
+      id: randomUUID(),
+      name: "基本単語",
+      order: 0,
+      userId: userId,
+    },
+  });
+
+  const greetingTag = await dbClient.tag.create({
+    data: {
+      id: randomUUID(),
+      name: "挨拶",
+      order: 1,
+      userId: userId,
+    },
+  });
+
+  // Create sample vocabulary notes
+  const helloNote = await dbClient.vocabularyNote.create({
+    data: {
+      id: randomUUID(),
+      frontContent: "Hello",
+      backContent: "こんにちは",
+      userId: userId,
+    },
+  });
+
+  const thanksNote = await dbClient.vocabularyNote.create({
+    data: {
+      id: randomUUID(),
+      frontContent: "Thank you",
+      backContent: "ありがとう",
+      userId: userId,
+    },
+  });
+
+  const goodbyeNote = await dbClient.vocabularyNote.create({
+    data: {
+      id: randomUUID(),
+      frontContent: "Goodbye",
+      backContent: "さようなら",
+      userId: userId,
+    },
+  });
+
+  // Create note-to-tag relations
+  await dbClient.noteToTagRelation.createMany({
+    data: [
+      {
+        id: randomUUID(),
+        userId: userId,
+        vocabularyNoteId: helloNote.id,
+        tagId: basicTag.id,
+      },
+      {
+        id: randomUUID(),
+        userId: userId,
+        vocabularyNoteId: helloNote.id,
+        tagId: greetingTag.id,
+      },
+      {
+        id: randomUUID(),
+        userId: userId,
+        vocabularyNoteId: thanksNote.id,
+        tagId: basicTag.id,
+      },
+      {
+        id: randomUUID(),
+        userId: userId,
+        vocabularyNoteId: thanksNote.id,
+        tagId: greetingTag.id,
+      },
+      {
+        id: randomUUID(),
+        userId: userId,
+        vocabularyNoteId: goodbyeNote.id,
+        tagId: greetingTag.id,
+      },
+    ],
+  });
+};
+
 // TODO: エラーハンドリング
 // TODO: ロギング
 // TODO: リファクタリング
@@ -20,7 +106,7 @@ export const afterAuth0Authentication = baseProcedure
   .input(inputSchema)
   .output(outputSchema)
   .mutation(async ({ input, ctx }) => {
-    const { auth0_sub, name, email } = input;
+    const { auth0_sub } = input;
     const auth0AUser = await ctx.dbClient.auth0User.findUnique({
       where: { sub: auth0_sub },
     });
@@ -35,7 +121,7 @@ export const afterAuth0Authentication = baseProcedure
         name: "未設定", // Placeholder name, can be updated later
         email: "", // Placeholder email, can be updated later
       };
-      await ctx.dbClient.$transaction(async (tx) => {
+      await ctx.dbClient.$transaction(async () => {
         await ctx.dbClient.user.create({
           data: user,
         });
@@ -45,6 +131,9 @@ export const afterAuth0Authentication = baseProcedure
             userId: user.id,
           },
         });
+
+        await createSampleData(user.id, ctx.dbClient);
+
         return user.id;
       });
       return user.id;

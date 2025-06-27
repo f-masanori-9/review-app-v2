@@ -1,6 +1,14 @@
 "use client";
 
 import { useUser } from "@auth0/nextjs-auth0";
+import {
+  AppBar,
+  Box,
+  Container,
+  IconButton,
+  Toolbar,
+  Typography,
+} from "@mui/material";
 import { usePathname, useRouter } from "next/navigation";
 import { MdOutlineAccountCircle } from "react-icons/md";
 
@@ -17,27 +25,22 @@ export const Header = () => {
     return <HeaderForNotLogin />;
   }
   return (
-    <div className="fixed z-50 top-0 w-full bg-white">
-      <div className="container mx-auto px-3 border-b-2">
-        <header className={`flex  py-1`}>
-          <div>
-            <h1>F</h1>
-          </div>
-          <div className="flex-1 flex justify-center">
-            {isAccount && <span className="">アカウント</span>}
-            {isNotes && <span className="">ノート管理</span>}
-          </div>
-          <div>
-            <div
-              className="flex justify-center items-center flex-1"
-              onClick={onClickToAccount}
-            >
-              <MdOutlineAccountCircle color="black" size={30} />
-            </div>
-          </div>
-        </header>
-      </div>
-    </div>
+    <AppBar position="fixed" sx={{ bgcolor: "white", color: "black" }}>
+      <Container maxWidth="xl">
+        <Toolbar sx={{ py: 0, minHeight: "24px !important" }}>
+          <Typography variant="h6" component="h1">
+            F
+          </Typography>
+          <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "center" }}>
+            {isAccount && <Typography>アカウント</Typography>}
+            {isNotes && <Typography>ノート管理</Typography>}
+          </Box>
+          <IconButton onClick={onClickToAccount} sx={{ color: "black" }}>
+            <MdOutlineAccountCircle size={24} />
+          </IconButton>
+        </Toolbar>
+      </Container>
+    </AppBar>
   );
 };
 
@@ -45,22 +48,31 @@ const HeaderForNotLogin = () => {
   const router = useRouter();
 
   return (
-    <div className="fixed z-50 top-0 w-full bg-white">
-      <div className="container mx-auto px-3 border-b-2">
-        <header className={`flex py-1 justify-between`}>
-          <div>
-            <h1>F</h1>
-          </div>
-          <div>
-            <button
-              className="text-primary"
+    <AppBar
+      position="fixed"
+      sx={{ bgcolor: "white", color: "black", boxShadow: 1 }}
+    >
+      <Container maxWidth="xl">
+        <Toolbar
+          sx={{
+            py: 0,
+            justifyContent: "space-between",
+            minHeight: "24px !important",
+          }}
+        >
+          <Typography variant="h6" component="h1">
+            F
+          </Typography>
+          <Box>
+            <IconButton
+              sx={{ color: "primary.main" }}
               onClick={() => router.push("/login")}
             >
-              登録/ログイン
-            </button>
-          </div>
-        </header>
-      </div>
-    </div>
+              <Typography variant="button">登録/ログイン</Typography>
+            </IconButton>
+          </Box>
+        </Toolbar>
+      </Container>
+    </AppBar>
   );
 };
