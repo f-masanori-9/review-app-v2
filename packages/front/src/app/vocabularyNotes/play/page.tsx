@@ -6,6 +6,7 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useVocabularyNotes } from "@/hooks/vocabularyNote/useVocabularyNotes";
 import { debounce } from "lodash";
 import { useSearchParams } from "next/navigation";
+import { Virtuoso } from "react-virtuoso";
 import { OneVocabularyNoteCard } from "./_components/OneVocabularyNoteCard/OneVocabularyNoteCard";
 
 export default function Page() {
@@ -67,26 +68,25 @@ export default function Page() {
         ref={wordCardsAreaRef}
         className="w-screen overflow-x-scroll h-[calc(100vh-100px)] snap-x snap-mandatory"
       >
-        <div
-          style={{ width: `${100 * viewedVocabularyNotes.length}vw` }}
-          className="flex"
-        >
-          {viewedVocabularyNotes.map((n, index) => {
-            return (
-              <OneVocabularyNoteCard
-                key={n.id}
-                vocabularyNoteId={n.id}
-                frontContent={n.frontContent}
-                backContent={n.backContent}
-                reviewCount={n.reviewLogs.length}
-                isShowBackContent={isShowBackContent}
-                setIsShowBackContent={setIsShowBackContent}
-                allCardsCount={viewedVocabularyNotes.length}
-                cardOrder={index + 1}
-              />
-            );
-          })}
-        </div>
+        <Virtuoso
+          style={{ height: "100%" }}
+          className="w-screen overflow-x-scroll h-[calc(100vh-100px)] snap-x snap-mandatory"
+          data={viewedVocabularyNotes}
+          horizontalDirection
+          itemContent={(index, n) => (
+            <OneVocabularyNoteCard
+              key={n.id}
+              vocabularyNoteId={n.id}
+              frontContent={n.frontContent}
+              backContent={n.backContent}
+              reviewCount={n.reviewLogs.length}
+              isShowBackContent={isShowBackContent}
+              setIsShowBackContent={setIsShowBackContent}
+              allCardsCount={viewedVocabularyNotes.length}
+              cardOrder={index + 1}
+            />
+          )}
+        />
       </div>
       <div
         className="fixed z-50 bottom-24 left-2  cursor-pointer"

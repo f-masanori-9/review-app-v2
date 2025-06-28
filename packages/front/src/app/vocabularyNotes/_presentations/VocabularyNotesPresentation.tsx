@@ -55,7 +55,7 @@ export const VocabularyNotesPresentation: React.FC<
   }
 
   return (
-    <Stack spacing={1} p={1} sx={{ height: "100%", overflow: "hidden" }}>
+    <Stack spacing={1} p={1}>
       <CreatableAutoComplete
         options={tags.map((tag) => ({
           value: tag.id,
@@ -66,7 +66,7 @@ export const VocabularyNotesPresentation: React.FC<
         onCreateItem={onCreateTag}
       />
 
-      <Box sx={{ height: "calc(100vh - 180px)", pb: "80px" }}>
+      <Box sx={{ height: "calc(100vh - 100px)", pb: "80px" }}>
         <Virtuoso
           style={{ height: "100%" }}
           data={filteredNotes}
