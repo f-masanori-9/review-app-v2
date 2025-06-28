@@ -45,8 +45,6 @@ export const Header = () => {
 };
 
 const HeaderForNotLogin = () => {
-  const router = useRouter();
-
   return (
     <AppBar
       position="fixed"
@@ -64,10 +62,7 @@ const HeaderForNotLogin = () => {
             F
           </Typography>
           <Box>
-            <IconButton
-              sx={{ color: "primary.main" }}
-              onClick={() => router.push("/login")}
-            >
+            <IconButton sx={{ color: "primary.main" }} href="/auth/login">
               <Typography variant="button">登録/ログイン</Typography>
             </IconButton>
           </Box>
