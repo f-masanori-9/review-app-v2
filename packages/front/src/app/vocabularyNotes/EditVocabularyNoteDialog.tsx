@@ -151,7 +151,7 @@ const EditVocabularyNoteDialog: FC<{
             </div>
             <Description>
               <textarea
-                className="w-full h-40 p-2 border border-gray-300 rounded p-1"
+                className="w-full h-20 p-2 border border-gray-300 rounded p-1"
                 value={content.frontContent}
                 onChange={(e) => {
                   const newContent = e.target.value;

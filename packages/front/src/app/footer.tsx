@@ -27,8 +27,7 @@ export const Footer: FC = () => {
         bottom: 0,
         width: "100%",
         p: 1,
-        mb: 1,
-        bgcolor: "rgba(255, 255, 255, 0.9)",
+        bgcolor: "white",
         display: "flex",
         justifyContent: "space-between",
       }}
