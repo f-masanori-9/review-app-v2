@@ -64,12 +64,8 @@ export default function Page() {
 
   return (
     <div>
-      <div
-        ref={wordCardsAreaRef}
-        className="w-screen overflow-x-scroll h-[calc(100vh-100px)] snap-x snap-mandatory"
-      >
+      <div ref={wordCardsAreaRef} className="h-[calc(100vh-100px)]">
         <Virtuoso
-          style={{ height: "100%" }}
           className="w-screen overflow-x-scroll h-[calc(100vh-100px)] snap-x snap-mandatory"
           data={viewedVocabularyNotes}
           horizontalDirection
