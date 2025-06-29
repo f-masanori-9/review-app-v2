@@ -42,8 +42,8 @@ export function VocabularyNoteForm({
   };
 
   return (
-    <DialogContent sx={{ p: 1 }}>
-      <Box sx={{ height: "40px", mb: 1 }}>
+    <DialogContent sx={{ p: 0.5 }}>
+      <Box sx={{ height: "40px", mb: 0.5 }}>
         <TagSelector
           vocabularyNote={vocabularyNote}
           isLoading={isLoadingNoteToTagRelations}

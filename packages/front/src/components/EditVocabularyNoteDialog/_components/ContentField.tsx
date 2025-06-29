@@ -21,9 +21,9 @@ export function ContentField({
       multiline
       rows={rows}
       sx={{
-        mb: 1,
+        mb: 0.5,
         "& .MuiOutlinedInput-root": {
-          padding: "8px 12px",
+          padding: "6px 8px",
         },
       }}
       value={value}
