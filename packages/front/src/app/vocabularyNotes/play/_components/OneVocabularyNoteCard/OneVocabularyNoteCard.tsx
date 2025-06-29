@@ -1,18 +1,12 @@
 "use client";
 
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  Divider,
-  Typography,
-} from "@mui/material";
-import React, { useState } from "react";
+import { Box, Card } from "@mui/material";
+import React from "react";
 
 import { useAddVocabularyNoteReview } from "@/hooks/useAddVocabularyNoteReview";
 import { useReward } from "react-rewards";
-import { Header } from "./header/Header";
+import { VocabularyCardContent } from "./CardContent/CardContent";
+import { RewardEffect } from "./RewardEffect/RewardEffect";
 
 export const OneVocabularyNoteCard: React.FC<{
   vocabularyNoteId: string;
@@ -29,129 +23,60 @@ export const OneVocabularyNoteCard: React.FC<{
   frontContent,
   backContent,
   reviewCount,
+  isShowBackContent,
+  setIsShowBackContent,
   allCardsCount,
   cardOrder,
   onEdit,
 }) => {
   const { addVocabularyNoteReview } = useAddVocabularyNoteReview();
   const { reward } = useReward("rewardId", "confetti");
-  const [isShowBackContent, setIsShowBackContent] = useState(false);
+
+  const handleReview = async () => {
+    await addVocabularyNoteReview(vocabularyNoteId);
+    reward();
+  };
 
   return (
-    <Box
-      key={vocabularyNoteId}
-      sx={{
-        width: "100vw",
-        scrollSnapAlign: "center",
-        height: "calc(100vh - 100px)",
-        position: "relative",
-      }}
-    >
-      <Card
+    <>
+      <Box
+        key={vocabularyNoteId}
         sx={{
-          width: "calc(100vw - 16px)",
-          maxWidth: 448,
-          display: "flex",
-          flexDirection: "column",
-          m: "8px auto",
-          gap: 1,
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
+          width: "100vw",
+          scrollSnapAlign: "center",
+          height: "calc(100vh - 100px)",
+          position: "relative",
         }}
       >
-        <CardContent sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <Header
-              onClickReviewButton={async (e) => {
-                e.stopPropagation();
-                await addVocabularyNoteReview(vocabularyNoteId);
-                reward();
-              }}
-              allCardsCount={allCardsCount}
-              cardOrder={cardOrder}
-              reviewCount={reviewCount}
-              onEdit={onEdit}
-            />
-          </Box>
-          <Typography
-            variant="h6"
-            sx={{
-              textAlign: "center",
-              whiteSpace: "pre-wrap",
-              wordBreak: "break-word",
-              fontWeight: 600,
-            }}
-          >
-            {frontContent}
-          </Typography>
-          <Divider />
-
-          {isShowBackContent ? (
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                gap: 1.5,
-              }}
-            >
-              <Box
-                sx={{
-                  maxHeight: "48vh",
-                  overflow: "scroll",
-                }}
-              >
-                <Typography
-                  sx={{
-                    color: "text.secondary",
-                    whiteSpace: "pre-wrap",
-                    wordBreak: "break-word",
-                  }}
-                >
-                  {backContent}
-                </Typography>
-              </Box>
-              <Button
-                onClick={() => setIsShowBackContent(false)}
-                variant="outlined"
-                color="primary"
-                size="small"
-                fullWidth
-              >
-                回答を隠す
-              </Button>
-            </Box>
-          ) : (
-            <Button
-              onClick={() => setIsShowBackContent(true)}
-              variant="contained"
-              color="primary"
-              fullWidth
-            >
-              回答を見る
-            </Button>
-          )}
-        </CardContent>
-      </Card>
-      {/* Reward effect element */}
-      <span
-        id="rewardId"
-        style={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          pointerEvents: "none",
-        }}
-      />
-    </Box>
+        <Card
+          sx={{
+            width: "calc(100vw - 16px)",
+            maxWidth: 448,
+            display: "flex",
+            flexDirection: "column",
+            m: "8px auto",
+            gap: 1,
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
+        >
+          <VocabularyCardContent
+            vocabularyNoteId={vocabularyNoteId}
+            frontContent={frontContent}
+            backContent={backContent}
+            reviewCount={reviewCount}
+            isShowBackContent={isShowBackContent}
+            setIsShowBackContent={setIsShowBackContent}
+            allCardsCount={allCardsCount}
+            cardOrder={cardOrder}
+            onEdit={onEdit}
+            onReview={handleReview}
+          />
+        </Card>
+      </Box>
+      <RewardEffect id="rewardId" />
+    </>
   );
 };
