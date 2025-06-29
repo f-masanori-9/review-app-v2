@@ -37,6 +37,7 @@ export const Footer: FC = () => {
           justifyContent: "space-between",
           alignItems: "center",
           flex: 1,
+          mb: 1,
         }}
       >
         <Box />
