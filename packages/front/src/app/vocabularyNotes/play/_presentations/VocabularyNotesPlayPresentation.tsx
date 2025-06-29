@@ -15,15 +15,11 @@ type VocabularyNote = {
 
 interface VocabularyNoteListProps {
   viewedVocabularyNotes: VocabularyNote[];
-  isShowBackContent: boolean;
-  setIsShowBackContent: React.Dispatch<React.SetStateAction<boolean>>;
   onEdit: (id: string) => void;
 }
 
 const VocabularyNoteList = ({
   viewedVocabularyNotes,
-  isShowBackContent,
-  setIsShowBackContent,
   onEdit,
 }: VocabularyNoteListProps) => {
   return (
@@ -60,8 +56,6 @@ const VocabularyNoteList = ({
           key={n.id}
           note={n}
           index={index}
-          isShowBackContent={isShowBackContent}
-          setIsShowBackContent={setIsShowBackContent}
           allCardsCount={viewedVocabularyNotes.length}
           onEdit={onEdit}
         />
@@ -73,8 +67,6 @@ const VocabularyNoteList = ({
 interface VocabularyNoteCardWrapperProps {
   note: VocabularyNote;
   index: number;
-  isShowBackContent: boolean;
-  setIsShowBackContent: React.Dispatch<React.SetStateAction<boolean>>;
   allCardsCount: number;
   onEdit: (id: string) => void;
 }
@@ -82,8 +74,6 @@ interface VocabularyNoteCardWrapperProps {
 const VocabularyNoteCardWrapper = ({
   note,
   index,
-  isShowBackContent,
-  setIsShowBackContent,
   allCardsCount,
   onEdit,
 }: VocabularyNoteCardWrapperProps) => {
@@ -101,8 +91,6 @@ const VocabularyNoteCardWrapper = ({
         frontContent={note.frontContent}
         backContent={note.backContent}
         reviewCount={note.reviewLogs.length}
-        isShowBackContent={isShowBackContent}
-        setIsShowBackContent={setIsShowBackContent}
         allCardsCount={allCardsCount}
         cardOrder={index + 1}
         onEdit={() => onEdit(note.id)}
@@ -129,8 +117,6 @@ const EditDialog = ({ selectedVN, onClose }: EditDialogProps) => {
 
 interface VocabularyNotesPlayPresentationProps {
   viewedVocabularyNotes: VocabularyNote[];
-  isShowBackContent: boolean;
-  setIsShowBackContent: React.Dispatch<React.SetStateAction<boolean>>;
   selectedVN: { id: string } | null;
   onEdit: (id: string) => void;
   onCloseEdit: () => void;
@@ -138,8 +124,6 @@ interface VocabularyNotesPlayPresentationProps {
 
 export const VocabularyNotesPlayPresentation = ({
   viewedVocabularyNotes,
-  isShowBackContent,
-  setIsShowBackContent,
   selectedVN,
   onEdit,
   onCloseEdit,
@@ -148,8 +132,6 @@ export const VocabularyNotesPlayPresentation = ({
     <Box>
       <VocabularyNoteList
         viewedVocabularyNotes={viewedVocabularyNotes}
-        isShowBackContent={isShowBackContent}
-        setIsShowBackContent={setIsShowBackContent}
         onEdit={onEdit}
       />
       {selectedVN && (

@@ -35,7 +35,6 @@ const Page = () => {
     tagIds
   );
 
-  const [isShowBackContent, setIsShowBackContent] = useState(false);
   const [selectedVN, setSelectedVN] = useState<{ id: string } | null>(null);
 
   if (isLoading) {
@@ -45,8 +44,6 @@ const Page = () => {
   return (
     <VocabularyNotesPlayPresentation
       viewedVocabularyNotes={viewedVocabularyNotes}
-      isShowBackContent={isShowBackContent}
-      setIsShowBackContent={setIsShowBackContent}
       selectedVN={selectedVN}
       onEdit={(id) => setSelectedVN({ id })}
       onCloseEdit={() => setSelectedVN(null)}

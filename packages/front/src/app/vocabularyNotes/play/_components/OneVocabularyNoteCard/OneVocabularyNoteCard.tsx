@@ -1,7 +1,7 @@
 "use client";
 
 import { Box, Card } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 
 import { useAddVocabularyNoteReview } from "@/hooks/useAddVocabularyNoteReview";
 import { useReward } from "react-rewards";
@@ -13,8 +13,6 @@ export const OneVocabularyNoteCard: React.FC<{
   frontContent: string;
   backContent: string;
   reviewCount: number;
-  isShowBackContent: boolean;
-  setIsShowBackContent: React.Dispatch<React.SetStateAction<boolean>>;
   allCardsCount: number;
   cardOrder: number;
   onEdit: () => void;
@@ -23,12 +21,11 @@ export const OneVocabularyNoteCard: React.FC<{
   frontContent,
   backContent,
   reviewCount,
-  isShowBackContent,
-  setIsShowBackContent,
   allCardsCount,
   cardOrder,
   onEdit,
 }) => {
+  const [isShowBackContent, setIsShowBackContent] = useState<boolean>(false);
   const { addVocabularyNoteReview } = useAddVocabularyNoteReview();
   const { reward } = useReward("rewardId", "confetti");
 
