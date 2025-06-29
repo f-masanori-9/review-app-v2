@@ -1,7 +1,9 @@
+import { Box, CircularProgress } from "@mui/material";
+
 export const Loading = () => {
   return (
-    <div className="flex justify-center" aria-label="読み込み中">
-      <div className="animate-ping h-4 w-4 bg-primary rounded-full"></div>
-    </div>
+    <Box sx={{ display: "flex", justifyContent: "center" }} aria-label="読み込み中">
+      <CircularProgress size={16} />
+    </Box>
   );
 };

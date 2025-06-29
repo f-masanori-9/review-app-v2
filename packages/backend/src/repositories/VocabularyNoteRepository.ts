@@ -3,8 +3,8 @@ import {
   VocabularyNote as VocabularyNoteDAO,
 } from "../../prisma/generated/prisma-client";
 import { VocabularyNote } from "../models/VocabularyNote";
-import { toVocabularyNoteReviewLog } from "./VocabularyNoteReviewLogRepository";
 import { toNoteToTagRelation } from "./NoteToTagRelationRepository";
+import { toVocabularyNoteReviewLog } from "./VocabularyNoteReviewLogRepository";
 
 export class VocabularyNoteRepository {
   constructor(private readonly prismaClient: PrismaClient) {}
@@ -28,7 +28,7 @@ export class VocabularyNoteRepository {
   async findByUserId({ userId }: { userId: string }) {
     const results = await this.prismaClient.vocabularyNote.findMany({
       where: { userId },
-      orderBy: { updatedAt: "asc" },
+      orderBy: { updatedAt: "desc" },
       include: {
         vocabularyNoteReviewLogs: true,
         NoteToTagRelations: {

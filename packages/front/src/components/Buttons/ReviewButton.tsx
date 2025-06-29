@@ -1,10 +1,10 @@
 "use client";
 
 import { Loading } from "@/components/Loading";
+import { Box, Button, Typography } from "@mui/material";
 import React, { FC } from "react";
-import { IoEyeOutline } from "react-icons/io5";
 import { FaEye } from "react-icons/fa6";
-import { resolvedConfig } from "../../../tailwind.config";
+import { IoEyeOutline } from "react-icons/io5";
 import { useReward } from "react-rewards";
 
 export const ReviewButton: FC<{
@@ -16,29 +16,35 @@ export const ReviewButton: FC<{
   const { reward } = useReward("rewardId", "confetti");
 
   return (
-    <button
+    <Button
       id="rewardId"
       onClick={(e) => {
         reward();
         onClick(e);
       }}
-      className="flex items-center gap-1"
+      variant="text"
       disabled={isLoading || isReviewed}
+      sx={{ minWidth: "auto", p: 0 }}
     >
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <>
-          {isReviewed ? (
-            <FaEye size={20} color={resolvedConfig.colors.primaryGray} />
-          ) : (
-            <IoEyeOutline size={20} />
-          )}
-          <span className={isReviewed ? `text-primaryGray` : ""}>
-            {reviewCount}
-          </span>
-        </>
-      )}
-    </button>
+      <Box display="flex" alignItems="center" gap={0.5}>
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <>
+            {isReviewed ? (
+              <FaEye size={20} color="text.disabled" />
+            ) : (
+              <IoEyeOutline size={20} color="gray" />
+            )}
+            <Typography
+              variant="body2"
+              color={isReviewed ? "text.disabled" : "text.primary"}
+            >
+              {reviewCount}
+            </Typography>
+          </>
+        )}
+      </Box>
+    </Button>
   );
 };

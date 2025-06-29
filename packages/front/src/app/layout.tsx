@@ -10,6 +10,7 @@ import { Footer } from "./footer";
 import "./globals.css";
 import { Header } from "./header";
 import theme from "./theme";
+import { SWRConfig } from "swr";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
@@ -46,19 +47,34 @@ export default async function RootLayout({
         // NOTE: padding-bottom 16 はフッターの高さを考慮
         // NOTE: ダークモードに設定されているスマホのために text-black と bg-white を指定
         // NOTE: スマホで不要に横スクロールしないように overflow-x-hidden を指定
-        className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-hidden bg-white text-black pt-10 `}
+        style={{
+          fontFamily: roboto.style.fontFamily,
+          WebkitFontSmoothing: "antialiased",
+          MozOsxFontSmoothing: "grayscale",
+          overflow: "hidden",
+          backgroundColor: "white",
+          color: "black",
+          paddingTop: "40px",
+        }}
+        className={`${geistSans.variable} ${geistMono.variable}`}
       >
-        <AppRouterCacheProvider>
-          <Auth0Provider user={session?.user}>
-            <ThemeProvider theme={theme}>
-              <AuthGuard>
-                <Header />
-                {children}
-                <Footer />
-              </AuthGuard>
-            </ThemeProvider>
-          </Auth0Provider>
-        </AppRouterCacheProvider>
+        <SWRConfig
+          value={{
+            revalidateOnFocus: false,
+          }}
+        >
+          <AppRouterCacheProvider>
+            <Auth0Provider user={session?.user}>
+              <ThemeProvider theme={theme}>
+                <AuthGuard>
+                  <Header />
+                  {children}
+                  <Footer />
+                </AuthGuard>
+              </ThemeProvider>
+            </Auth0Provider>
+          </AppRouterCacheProvider>
+        </SWRConfig>
       </body>
     </html>
   );

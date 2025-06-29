@@ -4,6 +4,7 @@ import { FC, useEffect, useState } from "react";
 import { Loading } from "@/components/Loading";
 import { useUser } from "@auth0/nextjs-auth0";
 import { useRouter } from "next/navigation";
+import { Box, Typography, Button, Container } from "@mui/material";
 
 export default function Login() {
   const { user } = useUser();
@@ -15,20 +16,19 @@ export default function Login() {
 
   if (!user) {
     return (
-      <>
-        <div className="relative h-96 ">
-          <div className="container mx-auto px-4 py-16">
-            <h2 className="text-3xl text-center">登録・ログイン</h2>
+      <Box sx={{ position: "relative", height: "384px" }}>
+        <Container sx={{ px: 2, py: 8 }}>
+          <Typography variant="h3" sx={{ textAlign: "center", mb: 4 }}>
+            登録・ログイン
+          </Typography>
 
-            {/* 登録ボタン */}
-            <div className="flex justify-center mt-8">
-              <div className="p-4 flex flex-col items-center">
-                <GoogleLoginButton isLoading={isLoading} />
-              </div>
-            </div>
-          </div>
-        </div>
-      </>
+          <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
+            <Box sx={{ p: 2, display: "flex", flexDirection: "column", alignItems: "center" }}>
+              <GoogleLoginButton isLoading={isLoading} />
+            </Box>
+          </Box>
+        </Container>
+      </Box>
     );
   }
 
@@ -40,12 +40,35 @@ const GoogleLoginButton: FC<{
 }> = ({ isLoading }) => {
   return (
     <a href="/auth/login">
-      <button
+      <Button
         disabled={isLoading}
-        className="flex items-center bg-white dark:bg-gray-900 border border-gray-300 rounded-lg shadow-md px-8 py-2 text-sm font-medium text-gray-800 dark:text-white hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 w-64"
+        variant="outlined"
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          bgcolor: "white",
+          border: 1,
+          borderColor: "grey.300",
+          borderRadius: 2,
+          boxShadow: 1,
+          px: 4,
+          py: 1,
+          fontSize: "0.875rem",
+          fontWeight: "medium",
+          color: "grey.800",
+          width: "256px",
+          "&:hover": {
+            bgcolor: "grey.200",
+          },
+          "&:focus": {
+            outline: "none",
+            boxShadow: "0 0 0 2px rgba(107, 114, 128, 0.5)",
+          },
+        }}
       >
-        <svg
-          className="h-6 w-6 mr-2"
+        <Box
+          component="svg"
+          sx={{ height: 24, width: 24, mr: 1 }}
           xmlns="http://www.w3.org/2000/svg"
           width="800px"
           height="800px"
@@ -85,9 +108,9 @@ const GoogleLoginButton: FC<{
               </g>
             </g>
           </g>
-        </svg>
+        </Box>
         <span>{isLoading ? <Loading /> : `Google で登録/ログイン`}</span>
-      </button>
+      </Button>
     </a>
   );
 };

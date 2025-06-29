@@ -1,95 +1,57 @@
 "use client";
 
 import { Loading } from "@/components/Loading";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
-import { useVocabularyNotes } from "@/hooks/vocabularyNote/useVocabularyNotes";
-import { debounce } from "lodash";
+import { useVocabularyNotesSWRImmutable } from "@/hooks/vocabularyNote/useVocabularyNotes";
 import { useSearchParams } from "next/navigation";
-import { Virtuoso } from "react-virtuoso";
-import { OneVocabularyNoteCard } from "./_components/OneVocabularyNoteCard/OneVocabularyNoteCard";
 
-export default function Page() {
-  const { data: vocabularyNotes = [], isLoading } = useVocabularyNotes();
+import {
+  VocabularyNotesPlayPresentation,
+  type VocabularyNote,
+} from "./_presentations/VocabularyNotesPlayPresentation";
+
+const useFilteredVocabularyNotes = (
+  vocabularyNotes: VocabularyNote[],
+  tagIds: string[]
+) => {
+  return useMemo(() => {
+    return vocabularyNotes.filter((note) => {
+      if (tagIds.length === 0) return true;
+      return note.noteToTagRelations.some((relation) =>
+        tagIds.includes(relation.tagId)
+      );
+    });
+  }, [vocabularyNotes, tagIds]);
+};
+
+const Page = () => {
+  const { data: vocabularyNotes = [], isLoading } =
+    useVocabularyNotesSWRImmutable();
   const searchParams = useSearchParams();
   const tagIds = searchParams.getAll("tagIds");
-  const viewedVocabularyNotes = vocabularyNotes.filter((note) => {
-    if (tagIds.length === 0) return true;
-    return note.noteToTagRelations.some((relation) =>
-      tagIds.includes(relation.tagId)
-    );
-  });
-
-  const wordCardsAreaRef = React.useRef<HTMLDivElement>(null);
-
-  // スクロールの処理をdebounceでラップ
-  const handleScroll = useMemo(
-    () =>
-      debounce(() => {
-        if (wordCardsAreaRef.current) {
-        }
-      }, 200),
-    []
+  const viewedVocabularyNotes = useFilteredVocabularyNotes(
+    vocabularyNotes,
+    tagIds
   );
 
-  useEffect(() => {
-    const element = wordCardsAreaRef.current;
-    if (element) {
-      element.addEventListener("scroll", handleScroll);
-    }
-
-    return () => {
-      if (element) {
-        element.removeEventListener("scroll", handleScroll);
-      }
-      handleScroll.cancel(); // debounceのキャンセル
-    };
-  }, [handleScroll]);
-
-  const scrollToNextCard = useCallback(() => {
-    if (wordCardsAreaRef.current) {
-      const currentScrollLeft = wordCardsAreaRef.current.scrollLeft;
-      const cardWidth = window.innerWidth;
-      wordCardsAreaRef.current.scrollTo({
-        left: currentScrollLeft + cardWidth,
-        behavior: "smooth",
-      });
-    }
-  }, []);
   const [isShowBackContent, setIsShowBackContent] = useState(false);
-
+  const [selectedVN, setSelectedVN] = useState<{ id: string } | null>(null);
+  console.log(selectedVN);
   if (isLoading) {
     return <Loading />;
   }
 
   return (
-    <div>
-      <div ref={wordCardsAreaRef} className="h-[calc(100vh-100px)]">
-        <Virtuoso
-          className="w-screen overflow-x-scroll h-[calc(100vh-100px)] snap-x snap-mandatory"
-          data={viewedVocabularyNotes}
-          horizontalDirection
-          itemContent={(index, n) => (
-            <OneVocabularyNoteCard
-              key={n.id}
-              vocabularyNoteId={n.id}
-              frontContent={n.frontContent}
-              backContent={n.backContent}
-              reviewCount={n.reviewLogs.length}
-              isShowBackContent={isShowBackContent}
-              setIsShowBackContent={setIsShowBackContent}
-              allCardsCount={viewedVocabularyNotes.length}
-              cardOrder={index + 1}
-            />
-          )}
-        />
-      </div>
-      <div
-        className="fixed z-50 bottom-24 left-2  cursor-pointer"
-        onClick={scrollToNextCard}
-      >
-        次へ
-      </div>
-    </div>
+    <VocabularyNotesPlayPresentation
+      viewedVocabularyNotes={viewedVocabularyNotes}
+      isShowBackContent={isShowBackContent}
+      setIsShowBackContent={setIsShowBackContent}
+      selectedVN={selectedVN}
+      onEdit={(id) => setSelectedVN({ id })}
+      onCloseEdit={() => setSelectedVN(null)}
+    />
   );
-}
+};
+
+export default Page;

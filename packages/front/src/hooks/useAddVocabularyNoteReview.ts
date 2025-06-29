@@ -1,9 +1,9 @@
+import { useMutateVocabularyNotes } from "@/hooks/vocabularyNote/useVocabularyNotes";
 import { tRPCClient } from "@/libs/tRPCClient";
 import { useCallback } from "react";
-import { useVocabularyNotes } from "./vocabularyNote/useVocabularyNotes";
 
 export const useAddVocabularyNoteReview = () => {
-  const { mutate } = useVocabularyNotes();
+  const { mutate } = useMutateVocabularyNotes();
 
   const addVocabularyNoteReview = useCallback(
     async (noteId: string) => {

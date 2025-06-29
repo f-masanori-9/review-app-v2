@@ -2,6 +2,7 @@
 
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import React, { FC } from "react";
+import { Paper, Box } from "@mui/material";
 
 export const DropDownMenu: FC<{
   menuButtonChildren: React.ReactNode;
@@ -20,24 +21,36 @@ export const DropDownMenu: FC<{
       >
         {menuButtonChildren}
       </MenuButton>
-      <MenuItems
-        anchor="bottom"
-        className="bg-white p-2 rounded-md border-[1px] w-20"
-      >
-        {items.map(({ key, children, onClick }) => {
-          return (
-            <MenuItem key={key}>
-              <div
-                className="flex items-center gap-1"
-                onClick={() => {
-                  onClick();
-                }}
-              >
-                {children}
-              </div>
-            </MenuItem>
-          );
-        })}
+      <MenuItems anchor="bottom">
+        <Paper
+          sx={{
+            bgcolor: "white",
+            p: 1,
+            borderRadius: 1,
+            border: 1,
+            borderColor: "divider",
+            width: "80px",
+          }}
+        >
+          {items.map(({ key, children, onClick }) => {
+            return (
+              <MenuItem key={key}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 0.5,
+                  }}
+                  onClick={() => {
+                    onClick();
+                  }}
+                >
+                  {children}
+                </Box>
+              </MenuItem>
+            );
+          })}
+        </Paper>
       </MenuItems>
     </Menu>
   );

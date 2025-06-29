@@ -1,14 +1,16 @@
+import { VocabularyNote } from "@/app/vocabularyNotes/types";
 import { tRPCClient } from "@/libs/tRPCClient";
 import { useCallback, useState } from "react";
 import useSWR, { mutate } from "swr";
-
+import useSWRImmutable from "swr/immutable";
 export const generateSWRKey = () => {
   return {
     path: "vocabulary-notes",
   } as const;
 };
 
-export const fetcher = async ({}: { path: "vocabulary-notes" }) => {
+export const fetcher = async () => {
+  console.log("fetcher");
   const { vocabularyNotes } =
     await tRPCClient.vocabularyNotes.getVocabularyNotes.query({});
 
@@ -16,7 +18,14 @@ export const fetcher = async ({}: { path: "vocabulary-notes" }) => {
 };
 
 export const useVocabularyNotes = () => {
-  return useSWR(generateSWRKey(), (key) => fetcher(key));
+  return useSWR(generateSWRKey(), () => {
+    console.log("useVocabularyNotes");
+    return fetcher();
+  });
+};
+
+export const useVocabularyNotesSWRImmutable = () => {
+  return useSWRImmutable(generateSWRKey(), () => fetcher());
 };
 
 export const useMutateVocabularyNotes = () => {
@@ -30,5 +39,38 @@ export const useMutateVocabularyNotes = () => {
     }
   }, []);
 
-  return { mutate: mutateVocabularyNotes, isLoading };
+  // ローカルのswrキャッシュのみを更新する関数
+  const mutateVocabularyNotesLocalOnly = useCallback(
+    async (updatedVN: {
+      id: string;
+      frontContent?: string;
+      backContent?: string;
+    }) => {
+      mutate(
+        generateSWRKey(),
+        (prevData: VocabularyNote[] | undefined) => {
+          if (!prevData) return prevData;
+
+          return prevData.map((vn) => {
+            if (vn.id === updatedVN.id) {
+              return {
+                ...vn,
+                frontContent: updatedVN.frontContent ?? vn.frontContent,
+                backContent: updatedVN.backContent ?? vn.backContent,
+              };
+            }
+            return vn;
+          });
+        },
+        false
+      );
+    },
+    []
+  );
+
+  return {
+    mutate: mutateVocabularyNotes,
+    mutateVocabularyNotesLocalOnly,
+    isLoading,
+  };
 };

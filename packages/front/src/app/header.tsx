@@ -29,7 +29,7 @@ export const Header = () => {
       <Container maxWidth="xl">
         <Toolbar sx={{ py: 0, minHeight: "24px !important" }}>
           <Typography variant="h6" component="h1">
-            F
+            ReviMemo
           </Typography>
           <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "center" }}>
             {isAccount && <Typography>アカウント</Typography>}

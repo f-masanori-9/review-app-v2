@@ -6,12 +6,13 @@ import {
 import { Loading } from "@/components/Loading";
 import { Box, Stack } from "@mui/material";
 import React from "react";
-import { FaPlay } from "react-icons/fa";
+import { FaPlay, FaPlus } from "react-icons/fa";
 import { ActionMeta } from "react-select";
 import { Virtuoso } from "react-virtuoso";
 import { AddTagDialog } from "../_components/AddTagDialog/AddTagDialog";
 import { OneVocabularyNote } from "../_components/OneVocabularyNote/OneVocabularyNote";
-import { EditVocabularyNoteDialogCore } from "../EditVocabularyNoteDialog";
+
+import { EditVocabularyNoteDialogCore } from "@/components/EditVocabularyNoteDialog";
 import { VocabularyNote } from "../types";
 
 interface VocabularyNotesPresentationProps {
@@ -32,6 +33,74 @@ interface VocabularyNotesPresentationProps {
   onCloseDialog: () => void;
   onAddTagDialogClose: (tagName: string) => void;
 }
+
+const StartButton: React.FC<{
+  onStartPlay: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  isLoadingAdding: boolean;
+}> = ({ onStartPlay, isLoadingAdding }) => (
+  <Box
+    sx={{
+      position: "fixed",
+      zIndex: 50,
+      bottom: "96px",
+      right: "8px",
+      cursor: "pointer",
+    }}
+  >
+    <Button
+      variant="outlined"
+      onClick={onStartPlay}
+      title="開始"
+      isLoading={isLoadingAdding}
+      startIcon={
+        <FaPlay
+          style={{
+            border: "none",
+            borderRadius: "6px",
+            marginRight: "4px",
+            marginLeft: "4px",
+          }}
+          color="#06b6d4"
+          size={14}
+        />
+      }
+    />
+  </Box>
+);
+
+const AddNoteButton: React.FC<{
+  onAddNote: () => void;
+  isLoadingAdding: boolean;
+}> = ({ onAddNote, isLoadingAdding }) => (
+  <Box
+    sx={{
+      position: "fixed",
+      zIndex: 50,
+      bottom: "96px",
+      left: "8px",
+      cursor: "pointer",
+    }}
+  >
+    <Button
+      variant="outlined"
+      onClick={onAddNote}
+      title="単語帳を追加"
+      isLoading={isLoadingAdding}
+      startIcon={
+        <FaPlus
+          style={{
+            border: "none",
+            borderRadius: "6px",
+            marginRight: "4px",
+            marginLeft: "4px",
+          }}
+          color="#06b6d4"
+          size={14}
+        />
+      }
+    />
+  </Box>
+);
 
 export const VocabularyNotesPresentation: React.FC<
   VocabularyNotesPresentationProps
@@ -83,51 +152,12 @@ export const VocabularyNotesPresentation: React.FC<
         />
       </Box>
 
-      <Box
-        sx={{
-          position: "fixed",
-          zIndex: 50,
-          bottom: "96px",
-          left: "8px",
-          cursor: "pointer",
-        }}
-      >
-        <Button
-          variant="outlined"
-          onClick={onAddNote}
-          title="単語帳を追加"
-          isLoading={isLoadingAdding}
-        />
-      </Box>
+      <AddNoteButton onAddNote={onAddNote} isLoadingAdding={isLoadingAdding} />
 
-      <Box
-        sx={{
-          position: "fixed",
-          zIndex: 50,
-          bottom: "96px",
-          right: "8px",
-          cursor: "pointer",
-        }}
-      >
-        <Button
-          variant="outlined"
-          onClick={onStartPlay}
-          title="開始"
-          isLoading={isLoadingAdding}
-          startIcon={
-            <FaPlay
-              style={{
-                border: "none",
-                borderRadius: "6px",
-                marginRight: "4px",
-                marginLeft: "4px",
-              }}
-              color="#06b6d4"
-              size={14}
-            />
-          }
-        />
-      </Box>
+      <StartButton
+        onStartPlay={onStartPlay}
+        isLoadingAdding={isLoadingAdding}
+      />
 
       {selectedVN && (
         <EditVocabularyNoteDialogCore

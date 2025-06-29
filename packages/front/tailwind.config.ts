@@ -1,6 +1,5 @@
 import type { Config } from "tailwindcss";
 import resolveConfig from "tailwindcss/resolveConfig";
-import flowbiteReact from "flowbite-react/plugin/tailwindcss";
 
 const colors = {
   primary: "#06b6d4",

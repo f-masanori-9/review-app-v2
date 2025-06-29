@@ -1,5 +1,5 @@
 import { ReviewButton } from "@/components/Buttons/ReviewButton";
-import { IconButton } from "@mui/material";
+import { IconButton, Box } from "@mui/material";
 import { FC } from "react";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 export const Footer: FC<{
@@ -13,8 +13,8 @@ export const Footer: FC<{
     onClickMenuButton
  }) => {
   return (
-    <div className="flex justify-between h-8">
-      <div className="flex items-center gap-2 text-gray-500">
+    <Box sx={{ display: "flex", justifyContent: "space-between", height: "32px" }}>
+      <Box sx={{ display: "flex", alignItems: "center", gap: 1, color: "text.secondary" }}>
         <ReviewButton
           onClick={onClickReview}
           //   onClick={async (e) => {
@@ -28,7 +28,7 @@ export const Footer: FC<{
           isReviewed={isReviewed}
           isLoading={isLoadingMutate}
         />
-      </div>
+      </Box>
       <IconButton
         aria-label="more"
         id="long-button"
@@ -45,10 +45,10 @@ export const Footer: FC<{
           {
             key: "delete",
             children: (
-              <div className="flex items-center gap-1">
+              <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
                 <FaTrash />
                 <span>削除</span>
-              </div>
+              </Box>
             ),
             onClick: () => {
               if (confirm("削除しますか？")) {
@@ -58,6 +58,6 @@ export const Footer: FC<{
           },
         ]}
       /> */}
-    </div>
+    </Box>
   );
 };

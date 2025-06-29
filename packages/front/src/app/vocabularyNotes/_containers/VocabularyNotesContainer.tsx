@@ -6,14 +6,15 @@ import { useCreateTag } from "@/hooks/tag/useCreateTag";
 import { useMutateTags, useTags } from "@/hooks/tag/useTags";
 import { useAddVocabularyNote } from "@/hooks/vocabularyNote/useAddVocabularyNote";
 import { useVocabularyNoteDialog } from "@/hooks/vocabularyNote/useVocabularyNoteDialog";
-import { useVocabularyNotes } from "@/hooks/vocabularyNote/useVocabularyNotes";
+import { useVocabularyNotesSWRImmutable } from "@/hooks/vocabularyNote/useVocabularyNotes";
 import { useVocabularyNotesFilter } from "@/hooks/vocabularyNote/useVocabularyNotesFilter";
 import { useRouter } from "next/navigation";
 import { useCallback } from "react";
 import { VocabularyNotesPresentation } from "../_presentations/VocabularyNotesPresentation";
 
 export const VocabularyNotesContainer = () => {
-  const { data: vocabularyNotes = [], isLoading } = useVocabularyNotes();
+  const { data: vocabularyNotes = [], isLoading } =
+    useVocabularyNotesSWRImmutable();
   const router = useRouter();
   const { addVocabularyNote, isLoading: isLoadingAdding } =
     useAddVocabularyNote();

@@ -2,6 +2,7 @@
 
 import { ChangeEventHandler, FC, useState } from "react";
 import React from "react";
+import { TextField } from "@mui/material";
 
 export const TextAreaAutoSize: FC<{
   defaultValue: string;
@@ -18,15 +19,40 @@ export const TextAreaAutoSize: FC<{
   }, [value]);
 
   return (
-    <textarea
-      ref={ref}
-      className="w-full h-auto p-3 m-1 border-none focus:ring-0 focus:outline-none min-h-32"
+    <TextField
+      inputRef={ref}
+      multiline
+      fullWidth
       value={value}
       onChange={(e) => {
         setValue(e.target.value);
-        onChange(e);
+        onChange(e as React.ChangeEvent<HTMLTextAreaElement>);
       }}
       placeholder={placeholder}
+      sx={{
+        "& .MuiOutlinedInput-root": {
+          padding: 1.5,
+          margin: 0.5,
+          border: "none",
+          "&:focus": {
+            outline: "none",
+          },
+          "& fieldset": {
+            border: "none",
+          },
+          "&:hover fieldset": {
+            border: "none",
+          },
+          "&.Mui-focused fieldset": {
+            border: "none",
+          },
+        },
+        "& .MuiInputBase-input": {
+          minHeight: "128px",
+          height: "auto",
+          padding: 0,
+        },
+      }}
     />
   );
 };

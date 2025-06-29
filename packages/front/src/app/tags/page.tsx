@@ -1,19 +1,22 @@
 "use client";
 
-import { Button } from "@/components/Buttons/Button";
 import { Loading } from "@/components/Loading";
 import { useCreateTag } from "@/hooks/tag/useCreateTag";
 import { useDeleteTag } from "@/hooks/tag/useDeleteTag";
 import { useTags } from "@/hooks/tag/useTags";
 import {
-  Description,
+  Box,
+  List,
+  ListItem,
+  Typography,
   Dialog,
-  DialogPanel,
   DialogTitle,
-  Textarea,
-  Transition,
-} from "@headlessui/react";
-import { FC, Fragment, useState } from "react";
+  DialogContent,
+  TextField,
+  Fab,
+  Button,
+} from "@mui/material";
+import { FC, useState } from "react";
 
 export default function Page() {
   const { data: tags = [], isLoading } = useTags();
@@ -26,36 +29,63 @@ export default function Page() {
   }
 
   return (
-    <div
-      className="p-1 relative overflow-hidden"
-      style={{ height: "calc(100vh - 40px)" }}
+    <Box
+      sx={{
+        p: 0.5,
+        position: "relative",
+        overflow: "hidden",
+        height: "calc(100vh - 40px)",
+      }}
     >
-      <div className="absolute bottom-4 left-4">
-        <Button
-          variant="outlined"
-          onClick={() => setIsOpenAddTagDialog(true)}
-          title="タグを追加"
-        />
-      </div>
-      <div className="">
-        <div>
-          {tags.map((tag) => (
-            <div
-              key={tag.id}
-              className="p-2 border-b flex items-center justify-between"
+      <Fab
+        sx={{
+          position: "absolute",
+          bottom: 16,
+          left: 16,
+        }}
+        onClick={() => setIsOpenAddTagDialog(true)}
+        size="small"
+        variant="extended"
+      >
+        タグを追加
+      </Fab>
+      <List>
+        {tags.map((tag) => (
+          <ListItem
+            key={tag.id}
+            sx={{
+              py: 1,
+              borderBottom: 1,
+              borderColor: "divider",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <Typography
+              sx={{
+                color: "text.secondary",
+                mr: 1,
+                width: "112px",
+              }}
             >
-              <span className="text-gray-600 mr-2 w-28">{tag.name}</span>{" "}
-              {/* タグ名を削除ボタンの左横に表示 */}
-              <Button
-                variant="filled"
-                onClick={() => deleteTag({ tagId: tag.id })} // タグ削除ボタン
-                title="削除"
-                className="text-red-500 ml-2 w-20" // ボタンを控えめに表示
-              />
-            </div>
-          ))}
-        </div>
-      </div>
+              {tag.name}
+            </Typography>
+            <Button
+              variant="contained"
+              color="error"
+              onClick={() => deleteTag({ tagId: tag.id })}
+              title="削除"
+              sx={{
+                ml: 1,
+                width: "80px",
+              }}
+            >
+              削除
+            </Button>
+          </ListItem>
+        ))}
+      </List>
       <AddTagDialog
         isOpen={isOpenAddTagDialog}
         onClose={(tagName) => {
@@ -64,7 +94,7 @@ export default function Page() {
           createTag({ tagName });
         }}
       />
-    </div>
+    </Box>
   );
 }
 
@@ -75,41 +105,28 @@ const AddTagDialog: FC<{
   const [content, setContent] = useState("");
 
   return (
-    <Transition
-      show={isOpen}
-      as={Fragment}
-      enter="transition duration-100 ease-out"
-      enterFrom="transform translate-y-4 opacity-0"
-      enterTo="transform translate-y-0 opacity-100"
-      leave="transition duration-75 ease-in"
-      leaveFrom="transform translate-y-0 opacity-100"
-      leaveTo="transform translate-y-4 opacity-0"
+    <Dialog
+      open={isOpen}
+      onClose={() => {
+        onClose(content);
+        setContent("");
+      }}
+      maxWidth="sm"
+      fullWidth
     >
-      <Dialog
-        open={isOpen}
-        onClose={() => {
-          onClose(content);
-          setContent("");
-        }}
-        className="relative z-50"
-      >
-        <div className="fixed inset-0 bg-black/30" />
-        <div className="fixed inset-0 flex w-screen items-center justify-center">
-          <DialogPanel className="w-screen max-w-sm rounded bg-white p-2">
-            <DialogTitle>タグ追加</DialogTitle>
-            <Description className={"p-2"}>
-              <Textarea
-                className="w-full p-2 border-gray-300 rounded"
-                autoFocus
-                onChange={(e) => {
-                  setContent(e.target.value);
-                }}
-                placeholder="タグ名"
-              />
-            </Description>
-          </DialogPanel>
-        </div>
-      </Dialog>
-    </Transition>
+      <DialogTitle>タグ追加</DialogTitle>
+      <DialogContent>
+        <TextField
+          fullWidth
+          autoFocus
+          value={content}
+          onChange={(e) => {
+            setContent(e.target.value);
+          }}
+          placeholder="タグ名"
+          sx={{ mt: 1 }}
+        />
+      </DialogContent>
+    </Dialog>
   );
 };

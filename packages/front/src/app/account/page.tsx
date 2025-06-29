@@ -1,26 +1,64 @@
 "use client";
 
 import { useUser } from "@auth0/nextjs-auth0";
+import { Box, Card, CardContent, Typography, Button } from "@mui/material";
 
 export default function Account() {
   const { user } = useUser();
 
   return (
-    <main className="flex-1 p-6">
-      <div className="max-w-md mx-auto space-y-6">
-        <div className="bg-white shadow rounded-xl p-6">
-          <h2 className="text-lg font-semibold mb-2">アカウント情報</h2>
-          <p className="text-gray-600">メールアドレス: {user?.email}</p>
-        </div>
+    <Box
+      component="main"
+      sx={{
+        flex: 1,
+        p: 3,
+      }}
+    >
+      <Box
+        sx={{
+          maxWidth: "28rem",
+          mx: "auto",
+          display: "flex",
+          flexDirection: "column",
+          gap: 3,
+        }}
+      >
+        <Card sx={{ boxShadow: 2 }}>
+          <CardContent>
+            <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
+              アカウント情報
+            </Typography>
+            <Typography sx={{ color: "text.secondary" }}>
+              メールアドレス: {user?.email}
+            </Typography>
+          </CardContent>
+        </Card>
 
-        <div className="bg-white shadow rounded-xl p-6">
-          <h2 className="text-lg font-semibold mb-4">アクション</h2>
+        <Card sx={{ boxShadow: 2 }}>
+          <CardContent>
+            <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>
+              アクション
+            </Typography>
 
-          <button className="w-full text-left py-2 px-4 rounded-md hover:bg-gray-100 text-red-500 font-medium">
-            <a href="/auth/logout">ログアウト</a>
-          </button>
-        </div>
-      </div>
-    </main>
+            <Button
+              fullWidth
+              sx={{
+                justifyContent: "flex-start",
+                py: 1,
+                px: 2,
+                color: "error.main",
+                fontWeight: "medium",
+                "&:hover": {
+                  bgcolor: "grey.100",
+                },
+              }}
+              href="/auth/logout"
+            >
+              ログアウト
+            </Button>
+          </CardContent>
+        </Card>
+      </Box>
+    </Box>
   );
 }

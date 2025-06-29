@@ -1,5 +1,13 @@
 "use client";
 
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Divider,
+  Typography,
+} from "@mui/material";
 import React, { useState } from "react";
 
 import { useAddVocabularyNoteReview } from "@/hooks/useAddVocabularyNoteReview";
@@ -15,6 +23,7 @@ export const OneVocabularyNoteCard: React.FC<{
   setIsShowBackContent: React.Dispatch<React.SetStateAction<boolean>>;
   allCardsCount: number;
   cardOrder: number;
+  onEdit: () => void;
 }> = ({
   vocabularyNoteId,
   frontContent,
@@ -22,55 +31,118 @@ export const OneVocabularyNoteCard: React.FC<{
   reviewCount,
   allCardsCount,
   cardOrder,
+  onEdit,
 }) => {
   const { addVocabularyNoteReview } = useAddVocabularyNoteReview();
   const { reward } = useReward("rewardId", "confetti");
   const [isShowBackContent, setIsShowBackContent] = useState(false);
 
   return (
-    <div
+    <Box
       key={vocabularyNoteId}
-      className="w-screen snap-center h-[calc(100vh-110px)] p-4 flex items-center justify-center relative"
+      sx={{
+        width: "100vw",
+        scrollSnapAlign: "center",
+        p: 2,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        position: "relative",
+      }}
     >
-      <div className="flex flex-col gap-2 w-full max-w-md bg-white shadow-lg rounded-lg border border-gray-200 p-4">
-        <Header
-          onClickReviewButton={async (e) => {
-            e.stopPropagation();
-            await addVocabularyNoteReview(vocabularyNoteId);
-            reward();
-          }}
-          allCardsCount={allCardsCount}
-          cardOrder={cardOrder}
-          reviewCount={reviewCount}
-        />
-        <div className="text-lg font-semibold text-center whitespace-pre-wrap break-words">
-          {frontContent}
-        </div>
-        <div className="border-b border-gray-300" />
-
-        {isShowBackContent ? (
-          <div className=" flex flex-col items-center gap-3">
-            <div className="text-gray-700 whitespace-pre-wrap break-words">
-              {backContent}
-            </div>
-            <button
-              onClick={() => setIsShowBackContent(false)}
-              type="button"
-              className="text-gray-600 hover:text-white border-gray-400 hover:bg-gray-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
-            >
-              回答を隠す
-            </button>
-          </div>
-        ) : (
-          <button
-            onClick={() => setIsShowBackContent(true)}
-            type="button"
-            className="text-gray-600 hover:text-white border-gray-400 hover:bg-gray-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800 w-full"
+      <Card
+        sx={{
+          width: "100%",
+          maxWidth: 448,
+          display: "flex",
+          flexDirection: "column",
+          gap: 1,
+        }}
+      >
+        <CardContent sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
           >
-            回答を見る
-          </button>
-        )}
-      </div>
-    </div>
+            <Header
+              onClickReviewButton={async (e) => {
+                e.stopPropagation();
+                await addVocabularyNoteReview(vocabularyNoteId);
+                reward();
+              }}
+              allCardsCount={allCardsCount}
+              cardOrder={cardOrder}
+              reviewCount={reviewCount}
+              onEdit={onEdit}
+            />
+          </Box>
+          <Typography
+            variant="h6"
+            sx={{
+              textAlign: "center",
+              whiteSpace: "pre-wrap",
+              wordBreak: "break-word",
+              fontWeight: 600,
+            }}
+          >
+            {frontContent}
+          </Typography>
+          <Divider />
+
+          {isShowBackContent ? (
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: 1.5,
+              }}
+            >
+              <Typography
+                sx={{
+                  color: "text.secondary",
+                  whiteSpace: "pre-wrap",
+                  wordBreak: "break-word",
+                }}
+              >
+                {backContent}
+              </Typography>
+              <Button
+                onClick={() => setIsShowBackContent(false)}
+                variant="outlined"
+                color="primary"
+                size="small"
+                fullWidth
+              >
+                回答を隠す
+              </Button>
+            </Box>
+          ) : (
+            <Button
+              onClick={() => setIsShowBackContent(true)}
+              variant="contained"
+              color="primary"
+              fullWidth
+            >
+              回答を見る
+            </Button>
+          )}
+        </CardContent>
+      </Card>
+      {/* Reward effect element */}
+      <span
+        id="rewardId"
+        style={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          pointerEvents: "none",
+        }}
+      />
+    </Box>
   );
 };

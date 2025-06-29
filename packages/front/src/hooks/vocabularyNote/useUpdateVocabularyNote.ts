@@ -2,8 +2,10 @@ import { tRPCClient } from "@/libs/tRPCClient";
 import { useCallback } from "react";
 import { useMutateOneVocabularyNote } from "./useOneVocabularyNote";
 import { useMutateVocabularyNotes } from "./useVocabularyNotes";
+
+// TODO: ミューテートの方法を選べるようにする
 export const useUpdateVocabularyNote = () => {
-  const { mutate: mutateVocabularyNotes } = useMutateVocabularyNotes();
+  const { mutateVocabularyNotesLocalOnly } = useMutateVocabularyNotes();
   const { mutateNoteVN: mutateOneNoteVN } = useMutateOneVocabularyNote();
 
   const updateNote = useCallback(
@@ -39,10 +41,14 @@ export const useUpdateVocabularyNote = () => {
         ...body,
       });
 
-      await mutateVocabularyNotes();
+      await mutateVocabularyNotesLocalOnly({
+        id: body.id,
+        frontContent: body.frontContent,
+        backContent: body.backContent,
+      });
       await mutateOneNoteVN(body.id);
     },
-    [mutateOneNoteVN, mutateVocabularyNotes]
+    [mutateOneNoteVN, mutateVocabularyNotesLocalOnly]
   );
 
   return { updateNote };
