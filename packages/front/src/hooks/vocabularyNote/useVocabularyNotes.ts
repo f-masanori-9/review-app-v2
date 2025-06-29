@@ -10,7 +10,6 @@ export const generateSWRKey = () => {
 };
 
 export const fetcher = async () => {
-  console.log("fetcher");
   const { vocabularyNotes } =
     await tRPCClient.vocabularyNotes.getVocabularyNotes.query({});
 
@@ -19,7 +18,6 @@ export const fetcher = async () => {
 
 export const useVocabularyNotes = () => {
   return useSWR(generateSWRKey(), () => {
-    console.log("useVocabularyNotes");
     return fetcher();
   });
 };
@@ -41,11 +39,14 @@ export const useMutateVocabularyNotes = () => {
 
   // ローカルのswrキャッシュのみを更新する関数
   const mutateVocabularyNotesLocalOnly = useCallback(
-    async (updatedVN: {
-      id: string;
-      frontContent?: string;
-      backContent?: string;
-    }) => {
+    async (
+      updatedVN: {
+        id: string;
+        frontContent?: string;
+        backContent?: string;
+      },
+      addDummyLog?: boolean
+    ) => {
       mutate(
         generateSWRKey(),
         (prevData: VocabularyNote[] | undefined) => {
@@ -57,6 +58,15 @@ export const useMutateVocabularyNotes = () => {
                 ...vn,
                 frontContent: updatedVN.frontContent ?? vn.frontContent,
                 backContent: updatedVN.backContent ?? vn.backContent,
+                reviewLogs: addDummyLog
+                  ? [
+                      ...vn.reviewLogs,
+                      {
+                        id: crypto.randomUUID(),
+                        createdAt: new Date(),
+                      },
+                    ]
+                  : vn.reviewLogs,
               };
             }
             return vn;

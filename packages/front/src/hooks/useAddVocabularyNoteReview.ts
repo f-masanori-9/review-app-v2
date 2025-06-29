@@ -3,7 +3,7 @@ import { tRPCClient } from "@/libs/tRPCClient";
 import { useCallback } from "react";
 
 export const useAddVocabularyNoteReview = () => {
-  const { mutate } = useMutateVocabularyNotes();
+  const { mutateVocabularyNotesLocalOnly } = useMutateVocabularyNotes();
 
   const addVocabularyNoteReview = useCallback(
     async (noteId: string) => {
@@ -11,9 +11,9 @@ export const useAddVocabularyNoteReview = () => {
         vocabularyNoteId: noteId,
       });
 
-      mutate();
+      mutateVocabularyNotesLocalOnly({ id: noteId }, true);
     },
-    [mutate]
+    [mutateVocabularyNotesLocalOnly]
   );
 
   return { addVocabularyNoteReview };
