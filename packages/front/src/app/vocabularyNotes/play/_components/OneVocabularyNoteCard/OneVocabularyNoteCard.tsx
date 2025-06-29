@@ -43,18 +43,22 @@ export const OneVocabularyNoteCard: React.FC<{
       sx={{
         width: "100vw",
         scrollSnapAlign: "center",
-        p: 2,
-        alignContent: "center",
         height: "calc(100vh - 100px)",
+        position: "relative",
       }}
     >
       <Card
         sx={{
-          width: "100%",
+          width: "calc(100vw - 16px)",
           maxWidth: 448,
           display: "flex",
           flexDirection: "column",
+          m: "8px auto",
           gap: 1,
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
         }}
       >
         <CardContent sx={{ display: "flex", flexDirection: "column", gap: 1 }}>

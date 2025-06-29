@@ -35,10 +35,26 @@ const VocabularyNoteList = ({
         scrollSnapType: "x mandatory",
         overflowY: "hidden",
       }}
-      overscan={2}
+      overscan={4}
       data={viewedVocabularyNotes}
       horizontalDirection
       totalCount={viewedVocabularyNotes.length}
+      components={{
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        Item: ({ item: _, ...p }) => (
+          <div
+            {...p}
+            style={{
+              display: "inline-block",
+              overflowAnchor: "none",
+              height: "calc(100vh - 100px)",
+              width: "100vw",
+            }}
+          >
+            {p.children}
+          </div>
+        ),
+      }}
       itemContent={(index, n) => (
         <VocabularyNoteCardWrapper
           key={n.id}
@@ -77,7 +93,7 @@ const VocabularyNoteCardWrapper = ({
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        height: "calc(100vh - 100px)",
+        height: "100%",
       }}
     >
       <OneVocabularyNoteCard
