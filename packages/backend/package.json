@@ -7,8 +7,10 @@
   "scripts": {
     "dev": "npx tsx watch src/main.ts",
     "start": "node dist/main.js",
-    "build": "yarn schema:gen && yarn type:gen && tsc -b",
+    "pre:build": "yarn schema:gen && yarn type:gen && yarn migrate:deploy",
+    "build": "tsc -b",
     "schema:gen": "prisma generate",
+    "migrate:deploy": "prisma migrate deploy",
     "migrate:dev": "prisma migrate dev --name",
     "type:gen": "tsc -p tsconfig.typegen.json"
   },

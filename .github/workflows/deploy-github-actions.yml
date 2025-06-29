@@ -21,3 +21,7 @@ jobs:
             cd /root/review-app-v2
             git checkout main
             git pull origin main
+            yarn
+            yarn backend pre:build
+            yarn backend build
+            sudo systemctl restart review-app-backend.service
