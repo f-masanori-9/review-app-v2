@@ -37,7 +37,7 @@ const Page = () => {
 
   const [isShowBackContent, setIsShowBackContent] = useState(false);
   const [selectedVN, setSelectedVN] = useState<{ id: string } | null>(null);
-  console.log(selectedVN);
+
   if (isLoading) {
     return <Loading />;
   }

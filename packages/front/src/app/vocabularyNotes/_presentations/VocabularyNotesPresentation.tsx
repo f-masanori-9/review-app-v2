@@ -12,7 +12,7 @@ import { Virtuoso } from "react-virtuoso";
 import { AddTagDialog } from "../_components/AddTagDialog/AddTagDialog";
 import { OneVocabularyNote } from "../_components/OneVocabularyNote/OneVocabularyNote";
 
-import { EditVocabularyNoteDialogCore } from "@/components/EditVocabularyNoteDialog";
+import { EditVocabularyNoteDialog } from "@/components/EditVocabularyNoteDialog";
 import { VocabularyNote } from "../types";
 
 interface VocabularyNotesPresentationProps {
@@ -135,7 +135,7 @@ export const VocabularyNotesPresentation: React.FC<
         onCreateItem={onCreateTag}
       />
 
-      <Box sx={{ height: "calc(100vh - 100px)", pb: "80px" }}>
+      <Box sx={{ height: "calc(100vh - 60px )", pb: "180px" }}>
         <Virtuoso
           style={{ height: "100%" }}
           data={filteredNotes}
@@ -160,7 +160,7 @@ export const VocabularyNotesPresentation: React.FC<
       />
 
       {selectedVN && (
-        <EditVocabularyNoteDialogCore
+        <EditVocabularyNoteDialog
           vocabularyNoteId={selectedVN.id}
           onClose={onCloseDialog}
         />

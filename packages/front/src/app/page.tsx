@@ -7,24 +7,15 @@ export default function Home() {
   return (
     <Box
       sx={{
-        position: 'relative',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        overflow: 'hidden',
+        position: "relative",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        overflow: "scroll",
+        height: "calc(100vh - 64px)",
       }}
     >
-      <Box
-        sx={{
-          position: 'relative',
-          zIndex: 10,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <HeroSection />
-      </Box>
+      <HeroSection />
     </Box>
   );
 }

@@ -44,10 +44,8 @@ export const OneVocabularyNoteCard: React.FC<{
         width: "100vw",
         scrollSnapAlign: "center",
         p: 2,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        position: "relative",
+        alignContent: "center",
+        height: "calc(100vh - 100px)",
       }}
     >
       <Card
@@ -101,15 +99,22 @@ export const OneVocabularyNoteCard: React.FC<{
                 gap: 1.5,
               }}
             >
-              <Typography
+              <Box
                 sx={{
-                  color: "text.secondary",
-                  whiteSpace: "pre-wrap",
-                  wordBreak: "break-word",
+                  maxHeight: "48vh",
+                  overflow: "scroll",
                 }}
               >
-                {backContent}
-              </Typography>
+                <Typography
+                  sx={{
+                    color: "text.secondary",
+                    whiteSpace: "pre-wrap",
+                    wordBreak: "break-word",
+                  }}
+                >
+                  {backContent}
+                </Typography>
+              </Box>
               <Button
                 onClick={() => setIsShowBackContent(false)}
                 variant="outlined"

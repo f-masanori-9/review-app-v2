@@ -5,12 +5,12 @@ import { ThemeProvider } from "@mui/material/styles";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Roboto } from "next/font/google";
 import React from "react";
+import { SWRConfig } from "swr";
 import { AuthGuard } from "./AuthGuard";
 import { Footer } from "./footer";
 import "./globals.css";
 import { Header } from "./header";
 import theme from "./theme";
-import { SWRConfig } from "swr";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
@@ -54,7 +54,8 @@ export default async function RootLayout({
           overflow: "hidden",
           backgroundColor: "white",
           color: "black",
-          paddingTop: "40px",
+          marginTop: "40px",
+          marginBottom: "60px",
         }}
         className={`${geistSans.variable} ${geistMono.variable}`}
       >

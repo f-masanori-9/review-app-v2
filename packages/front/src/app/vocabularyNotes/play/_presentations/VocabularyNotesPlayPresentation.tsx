@@ -27,35 +27,30 @@ const VocabularyNoteList = ({
   onEdit,
 }: VocabularyNoteListProps) => {
   return (
-    <Box
-      sx={{
-        height: "calc(100vh - 120px)",
+    <Virtuoso
+      style={{
+        width: "100vw",
+        overflowX: "scroll",
+        height: "calc(100vh - 100px)",
+        scrollSnapType: "x mandatory",
         overflowY: "hidden",
       }}
-    >
-      <Virtuoso
-        style={{
-          width: "100vw",
-          overflowX: "scroll",
-          height: "calc(100vh - 160px)",
-          scrollSnapType: "x mandatory",
-        }}
-        data={viewedVocabularyNotes}
-        horizontalDirection
-        totalCount={viewedVocabularyNotes.length}
-        itemContent={(index, n) => (
-          <VocabularyNoteCardWrapper
-            key={n.id}
-            note={n}
-            index={index}
-            isShowBackContent={isShowBackContent}
-            setIsShowBackContent={setIsShowBackContent}
-            allCardsCount={viewedVocabularyNotes.length}
-            onEdit={onEdit}
-          />
-        )}
-      />
-    </Box>
+      overscan={2}
+      data={viewedVocabularyNotes}
+      horizontalDirection
+      totalCount={viewedVocabularyNotes.length}
+      itemContent={(index, n) => (
+        <VocabularyNoteCardWrapper
+          key={n.id}
+          note={n}
+          index={index}
+          isShowBackContent={isShowBackContent}
+          setIsShowBackContent={setIsShowBackContent}
+          allCardsCount={viewedVocabularyNotes.length}
+          onEdit={onEdit}
+        />
+      )}
+    />
   );
 };
 
@@ -82,7 +77,7 @@ const VocabularyNoteCardWrapper = ({
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        height: "100%",
+        height: "calc(100vh - 100px)",
       }}
     >
       <OneVocabularyNoteCard
