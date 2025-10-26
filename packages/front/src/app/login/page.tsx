@@ -1,10 +1,9 @@
-"use client";
-import { FC, useEffect, useState } from "react";
-
-import { Loading } from "@/components/Loading";
-import { useUser } from "@auth0/nextjs-auth0";
-import { useRouter } from "next/navigation";
-import { Box, Typography, Button, Container } from "@mui/material";
+'use client';
+import { useUser } from '@auth0/nextjs-auth0';
+import { Box, Button, Container, Typography } from '@mui/material';
+import { useRouter } from 'next/navigation';
+import { type FC, useEffect, useState } from 'react';
+import { Loading } from '@/components/Loading';
 
 export default function Login() {
   const { user } = useUser();
@@ -16,14 +15,21 @@ export default function Login() {
 
   if (!user) {
     return (
-      <Box sx={{ position: "relative", height: "384px" }}>
+      <Box sx={{ position: 'relative', height: '384px' }}>
         <Container sx={{ px: 2, py: 8 }}>
-          <Typography variant="h3" sx={{ textAlign: "center", mb: 4 }}>
+          <Typography variant="h3" sx={{ textAlign: 'center', mb: 4 }}>
             登録・ログイン
           </Typography>
 
-          <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
-            <Box sx={{ p: 2, display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+            <Box
+              sx={{
+                p: 2,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+              }}
+            >
               <GoogleLoginButton isLoading={isLoading} />
             </Box>
           </Box>
@@ -44,25 +50,25 @@ const GoogleLoginButton: FC<{
         disabled={isLoading}
         variant="outlined"
         sx={{
-          display: "flex",
-          alignItems: "center",
-          bgcolor: "white",
+          display: 'flex',
+          alignItems: 'center',
+          bgcolor: 'white',
           border: 1,
-          borderColor: "grey.300",
+          borderColor: 'grey.300',
           borderRadius: 2,
           boxShadow: 1,
           px: 4,
           py: 1,
-          fontSize: "0.875rem",
-          fontWeight: "medium",
-          color: "grey.800",
-          width: "256px",
-          "&:hover": {
-            bgcolor: "grey.200",
+          fontSize: '0.875rem',
+          fontWeight: 'medium',
+          color: 'grey.800',
+          width: '256px',
+          '&:hover': {
+            bgcolor: 'grey.200',
           },
-          "&:focus": {
-            outline: "none",
-            boxShadow: "0 0 0 2px rgba(107, 114, 128, 0.5)",
+          '&:focus': {
+            outline: 'none',
+            boxShadow: '0 0 0 2px rgba(107, 114, 128, 0.5)',
           },
         }}
       >
@@ -119,7 +125,7 @@ const AlreadyLoggedIn = () => {
   const router = useRouter();
 
   useEffect(() => {
-    router.push("/vocabularyNotes");
+    router.push('/vocabularyNotes');
   }, [router]);
 
   return null;

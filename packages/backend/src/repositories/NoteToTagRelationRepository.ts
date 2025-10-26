@@ -1,8 +1,8 @@
-import {
-  PrismaClient,
+import type {
   NoteToTagRelation as NoteToTagRelationModel,
-} from "../../prisma/generated/prisma-client";
-import { NoteToTagRelation } from "../models/NoteToTagRelation";
+  PrismaClient,
+} from '../../prisma/generated/prisma-client';
+import { NoteToTagRelation } from '../models/NoteToTagRelation';
 
 export class NoteToTagRelationRepository {
   constructor(private readonly prismaClient: PrismaClient) {}
@@ -54,13 +54,13 @@ export class NoteToTagRelationRepository {
 }
 
 export const toNoteToTagRelation = (
-  tag: NoteToTagRelationModel
+  tag: NoteToTagRelationModel,
 ): NoteToTagRelation => {
   return new NoteToTagRelation(tag);
 };
 
 export const toNoteToTagRelationModel = (
-  tag: NoteToTagRelation
+  tag: NoteToTagRelation,
 ): NoteToTagRelationModel => {
   return {
     ...tag,

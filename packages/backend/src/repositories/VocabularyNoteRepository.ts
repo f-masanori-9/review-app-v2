@@ -1,17 +1,17 @@
-import {
+import type {
   PrismaClient,
   VocabularyNote as VocabularyNoteDAO,
-} from "../../prisma/generated/prisma-client";
-import { VocabularyNote } from "../models/VocabularyNote";
-import { toNoteToTagRelation } from "./NoteToTagRelationRepository";
-import { toVocabularyNoteReviewLog } from "./VocabularyNoteReviewLogRepository";
+} from '../../prisma/generated/prisma-client';
+import { VocabularyNote } from '../models/VocabularyNote';
+import { toNoteToTagRelation } from './NoteToTagRelationRepository';
+import { toVocabularyNoteReviewLog } from './VocabularyNoteReviewLogRepository';
 
 export class VocabularyNoteRepository {
   constructor(private readonly prismaClient: PrismaClient) {}
 
   async findAll() {
     return this.prismaClient.vocabularyNote.findMany({
-      orderBy: { updatedAt: "desc" },
+      orderBy: { updatedAt: 'desc' },
     });
   }
 
@@ -28,7 +28,7 @@ export class VocabularyNoteRepository {
   async findByUserId({ userId }: { userId: string }) {
     const results = await this.prismaClient.vocabularyNote.findMany({
       where: { userId },
-      orderBy: { updatedAt: "desc" },
+      orderBy: { updatedAt: 'desc' },
       include: {
         vocabularyNoteReviewLogs: true,
         NoteToTagRelations: {
@@ -46,16 +46,16 @@ export class VocabularyNoteRepository {
       ({ vocabularyNoteReviewLogs, NoteToTagRelations, ...rest }) => {
         const vocabularyNote = toVocabularyNote(rest);
         const reviewLogs = vocabularyNoteReviewLogs.map(
-          toVocabularyNoteReviewLog
+          toVocabularyNoteReviewLog,
         );
         const noteToTagRelations = NoteToTagRelations.map(({ tag, ...d }) =>
-          Object.assign(toNoteToTagRelation(d), { tagName: tag.name })
+          Object.assign(toNoteToTagRelation(d), { tagName: tag.name }),
         );
         return Object.assign(vocabularyNote, {
           reviewLogs,
           noteToTagRelations,
         });
-      }
+      },
     );
   }
 

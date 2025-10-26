@@ -1,15 +1,15 @@
-import { tRPCClient } from "@/libs/tRPCClient";
-import { useCallback } from "react";
-import useSWR, { mutate, SWRConfiguration } from "swr";
+import { useCallback } from 'react';
+import useSWR, { mutate, type SWRConfiguration } from 'swr';
+import { tRPCClient } from '@/libs/tRPCClient';
 
 export const generateKey = (noteId: string) => ({
   noteId,
-  name: "useOneVocabularyNote",
+  name: 'useOneVocabularyNote',
 });
 
 export const useOneVocabularyNote = (
   noteId: string,
-  options?: SWRConfiguration
+  options?: SWRConfiguration,
 ) => {
   return useSWR(
     generateKey(noteId),
@@ -21,7 +21,7 @@ export const useOneVocabularyNote = (
 
       return vocabularyNote;
     },
-    options
+    options,
   );
 };
 

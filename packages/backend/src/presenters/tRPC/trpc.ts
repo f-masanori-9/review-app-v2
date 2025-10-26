@@ -1,21 +1,21 @@
-import { initTRPC, TRPCError } from "@trpc/server";
-import { CreateExpressContextOptions } from "@trpc/server/adapters/express";
-import { createRemoteJWKSet, jwtVerify } from "jose";
-import superjson from "superjson";
-import { logger } from "../../config/logger";
-import { prismaClient } from "../../infra/prismaClient";
-import { NoteToTagRelationRepository } from "../../repositories/NoteToTagRelationRepository";
-import { UserRepository } from "../../repositories/UserRepository";
-import { VocabularyNoteRepository } from "../../repositories/VocabularyNoteRepository";
-import { VocabularyNoteReviewLogRepository } from "../../repositories/VocabularyNoteReviewLogRepository";
+import { initTRPC, TRPCError } from '@trpc/server';
+import type { CreateExpressContextOptions } from '@trpc/server/adapters/express';
+import { createRemoteJWKSet, jwtVerify } from 'jose';
+import superjson from 'superjson';
+import { logger } from '../../config/logger';
+import { prismaClient } from '../../infra/prismaClient';
+import { NoteToTagRelationRepository } from '../../repositories/NoteToTagRelationRepository';
+import { UserRepository } from '../../repositories/UserRepository';
+import { VocabularyNoteRepository } from '../../repositories/VocabularyNoteRepository';
+import { VocabularyNoteReviewLogRepository } from '../../repositories/VocabularyNoteReviewLogRepository';
 
 const userRepository = new UserRepository(prismaClient);
 const vocabularyNoteRepository = new VocabularyNoteRepository(prismaClient);
 const noteToTagRelationRepository = new NoteToTagRelationRepository(
-  prismaClient
+  prismaClient,
 );
 const vocabularyNoteReviewLogRepository = new VocabularyNoteReviewLogRepository(
-  prismaClient
+  prismaClient,
 );
 
 export const createContext = async (opts: CreateExpressContextOptions) => {
@@ -31,12 +31,12 @@ export const createContext = async (opts: CreateExpressContextOptions) => {
 
 // TODO: 環境変数化
 // TODO: リファクタリング
-const AUTH0_DOMAIN = "https://f-masanori.jp.auth0.com";
-const AUTH0_AUDIENCE = "https://f-masanori.jp.auth0.com/api/v2/";
+const AUTH0_DOMAIN = 'https://f-masanori.jp.auth0.com';
+const AUTH0_AUDIENCE = 'https://f-masanori.jp.auth0.com/api/v2/';
 
 // 1. JWK Set の URL を指定
 const JWKS = createRemoteJWKSet(
-  new URL(`${AUTH0_DOMAIN}/.well-known/jwks.json`)
+  new URL(`${AUTH0_DOMAIN}/.well-known/jwks.json`),
 );
 
 export async function verifyIdToken(idToken: string) {
@@ -48,8 +48,8 @@ export async function verifyIdToken(idToken: string) {
 
     return payload;
   } catch (err) {
-    logger.error("❌ IDトークンの検証失敗:", err);
-    throw new Error("Invalid ID token");
+    logger.error('❌ IDトークンの検証失敗:', err);
+    throw new Error('Invalid ID token');
   }
 }
 
@@ -69,15 +69,15 @@ const baseProcedure = t.procedure.use(attachRepositoryMiddleware);
 
 const authRequiredProcedure = baseProcedure.use(
   t.middleware(async ({ ctx, next }) => {
-    const authHeader = ctx.req.header("Authorization");
+    const authHeader = ctx.req.header('Authorization');
     if (!authHeader) {
       throw new TRPCError({
-        code: "UNAUTHORIZED",
-        message: "トークンがありません。",
+        code: 'UNAUTHORIZED',
+        message: 'トークンがありません。',
       });
     }
     const verifiedToken = await verifyIdToken(
-      authHeader.replace("Bearer ", "")
+      authHeader.replace('Bearer ', ''),
     );
     const users = await ctx.dbClient.user.findMany({
       where: {
@@ -91,8 +91,8 @@ const authRequiredProcedure = baseProcedure.use(
     const user = users[0];
     if (!user) {
       throw new TRPCError({
-        code: "UNAUTHORIZED",
-        message: "ユーザーが存在しません。",
+        code: 'UNAUTHORIZED',
+        message: 'ユーザーが存在しません。',
       });
     }
     return next({
@@ -101,7 +101,7 @@ const authRequiredProcedure = baseProcedure.use(
         user,
       },
     });
-  })
+  }),
 );
 
 export { authRequiredProcedure, baseProcedure, t };

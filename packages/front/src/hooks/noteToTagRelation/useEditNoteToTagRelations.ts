@@ -1,9 +1,9 @@
-import { tRPCClient } from "@/libs/tRPCClient";
-import { useCallback } from "react";
+import { useCallback } from 'react';
+import { tRPCClient } from '@/libs/tRPCClient';
 
 export const generateSWRKey = (arg: { noteId: string }) => {
   return {
-    path: "useNoteToTagRelations",
+    path: 'useNoteToTagRelations',
     query: {
       noteId: arg.noteId,
     },

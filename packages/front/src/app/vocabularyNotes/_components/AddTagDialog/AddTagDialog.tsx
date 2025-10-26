@@ -5,9 +5,9 @@ import {
   DialogTitle,
   Textarea,
   Transition,
-} from "@headlessui/react";
-import { Box } from "@mui/material";
-import React, { FC, Fragment, useState } from "react";
+} from '@headlessui/react';
+import { Box } from '@mui/material';
+import React, { type FC, Fragment, useState } from 'react';
 
 interface AddTagDialogProps {
   isOpen: boolean;
@@ -15,7 +15,7 @@ interface AddTagDialogProps {
 }
 
 export const AddTagDialog: FC<AddTagDialogProps> = ({ isOpen, onClose }) => {
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState('');
 
   return (
     <Transition
@@ -32,38 +32,40 @@ export const AddTagDialog: FC<AddTagDialogProps> = ({ isOpen, onClose }) => {
         open={isOpen}
         onClose={() => {
           onClose(content);
-          setContent("");
+          setContent('');
         }}
         className="relative z-50"
       >
-        <Box sx={{ position: "fixed", inset: 0, bgcolor: "black", opacity: 0.3 }} />
+        <Box
+          sx={{ position: 'fixed', inset: 0, bgcolor: 'black', opacity: 0.3 }}
+        />
         <Box
           sx={{
-            position: "fixed",
+            position: 'fixed',
             inset: 0,
-            display: "flex",
-            width: "100vw",
-            alignItems: "center",
-            justifyContent: "center",
+            display: 'flex',
+            width: '100vw',
+            alignItems: 'center',
+            justifyContent: 'center',
           }}
         >
           <DialogPanel
             style={{
-              width: "100vw",
-              maxWidth: "24rem",
-              borderRadius: "8px",
-              backgroundColor: "white",
-              padding: "8px",
+              width: '100vw',
+              maxWidth: '24rem',
+              borderRadius: '8px',
+              backgroundColor: 'white',
+              padding: '8px',
             }}
           >
             <DialogTitle>タグ追加</DialogTitle>
-            <Description style={{ padding: "8px" }}>
+            <Description style={{ padding: '8px' }}>
               <Textarea
                 style={{
-                  width: "100%",
-                  padding: "8px",
-                  borderColor: "#d1d5db",
-                  borderRadius: "8px",
+                  width: '100%',
+                  padding: '8px',
+                  borderColor: '#d1d5db',
+                  borderRadius: '8px',
                 }}
                 autoFocus
                 onChange={(e) => {

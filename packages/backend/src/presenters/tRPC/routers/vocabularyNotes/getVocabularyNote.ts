@@ -1,7 +1,6 @@
-import { z } from "zod";
-
-import { authRequiredProcedure } from "../../trpc";
-import { VocabularyNoteRepository } from "../../../../repositories/VocabularyNoteRepository";
+import { z } from 'zod';
+import { VocabularyNoteRepository } from '../../../../repositories/VocabularyNoteRepository';
+import { authRequiredProcedure } from '../../trpc';
 
 const inputSchema = z.object({
   vocabularyNoteId: z.string(),

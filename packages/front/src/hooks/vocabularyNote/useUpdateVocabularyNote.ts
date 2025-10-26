@@ -1,10 +1,12 @@
-import { tRPCClient } from "@/libs/tRPCClient";
-import { useCallback } from "react";
-import { useMutateOneVocabularyNote } from "./useOneVocabularyNote";
-import { useMutateVocabularyNotes } from "./useVocabularyNotes";
+import { useCallback } from 'react';
+import { tRPCClient } from '@/libs/tRPCClient';
+import { useMutateOneVocabularyNote } from './useOneVocabularyNote';
+import { useMutateVocabularyNotes } from './useVocabularyNotes';
 
 // TODO: ミューテートの方法を選べるようにする
-export const useUpdateVocabularyNote = () => {
+export const useUpdateVocabularyNote = (options?: {
+  isMutateVocabularyNotes?: boolean;
+}) => {
   const { mutateVocabularyNotesLocalOnly } = useMutateVocabularyNotes();
   const { mutateNoteVN: mutateOneNoteVN } = useMutateOneVocabularyNote();
 
@@ -12,27 +14,27 @@ export const useUpdateVocabularyNote = () => {
     async (
       args: { noteId: string } & (
         | {
-            kind: "frontContent";
+            kind: 'frontContent';
             content: string;
           }
         | {
-            kind: "backContent";
+            kind: 'backContent';
             content: string;
           }
-      )
+      ),
     ) => {
       const body = (() => {
         switch (args.kind) {
-          case "frontContent":
+          case 'frontContent':
             return {
               id: args.noteId,
-              kind: "frontContent",
+              kind: 'frontContent',
               frontContent: args.content,
             } as const;
-          case "backContent":
+          case 'backContent':
             return {
               id: args.noteId,
-              kind: "backContent",
+              kind: 'backContent',
               backContent: args.content,
             } as const;
         }
@@ -41,14 +43,20 @@ export const useUpdateVocabularyNote = () => {
         ...body,
       });
 
-      await mutateVocabularyNotesLocalOnly({
-        id: body.id,
-        frontContent: body.frontContent,
-        backContent: body.backContent,
-      });
+      if (options?.isMutateVocabularyNotes) {
+        await mutateVocabularyNotesLocalOnly({
+          id: body.id,
+          frontContent: body.frontContent,
+          backContent: body.backContent,
+        });
+      }
       await mutateOneNoteVN(body.id);
     },
-    [mutateOneNoteVN, mutateVocabularyNotesLocalOnly]
+    [
+      mutateOneNoteVN,
+      mutateVocabularyNotesLocalOnly,
+      options?.isMutateVocabularyNotes,
+    ],
   );
 
   return { updateNote };

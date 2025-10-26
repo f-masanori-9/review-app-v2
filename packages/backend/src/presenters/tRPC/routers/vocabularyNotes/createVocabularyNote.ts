@@ -1,7 +1,6 @@
-import { z } from "zod";
-
-import { authRequiredProcedure } from "../../trpc";
-import { CreateVocabularyNoteService } from "../../../../services/createVocabularyNote";
+import { z } from 'zod';
+import { CreateVocabularyNoteService } from '../../../../services/createVocabularyNote';
+import { authRequiredProcedure } from '../../trpc';
 
 const inputSchema = z.object({
   noteId: z.string(),
@@ -29,8 +28,8 @@ export const createVocabularyNote = authRequiredProcedure
     const vocabularyNote = await service.createVocabularyNote({
       vocabularyNoteId: input.noteId,
       userId: user.id,
-      frontContent: input.frontContent || "",
-      backContent: input.backContent || "",
+      frontContent: input.frontContent || '',
+      backContent: input.backContent || '',
       relatedTagIds: input.relatedTagIds || [],
     });
     return vocabularyNote;

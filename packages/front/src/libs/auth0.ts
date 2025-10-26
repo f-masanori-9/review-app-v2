@@ -1,8 +1,8 @@
-import {} from "@auth0/nextjs-auth0";
-import { Auth0Client } from "@auth0/nextjs-auth0/server";
-import { NextResponse } from "next/server";
-import { tRPCClient } from "./tRPCClient";
-export const runtime = "nodejs"; // ← これが重要
+import {} from '@auth0/nextjs-auth0';
+import { Auth0Client } from '@auth0/nextjs-auth0/server';
+import { NextResponse } from 'next/server';
+import { tRPCClient } from './tRPCClient';
+export const runtime = 'nodejs'; // ← これが重要
 // Initialize the Auth0 client
 export const auth0 = new Auth0Client({
   // Options are loaded from environment variables by default
@@ -23,7 +23,7 @@ export const auth0 = new Auth0Client({
     // redirect the user to a custom error page
     if (error) {
       return NextResponse.redirect(
-        new URL(`/error?error=${error.message}`, process.env.APP_BASE_URL)
+        new URL(`/error?error=${error.message}`, process.env.APP_BASE_URL),
       );
     }
 
@@ -37,7 +37,7 @@ export const auth0 = new Auth0Client({
     }
     // complete the redirect to the provided returnTo URL
     return NextResponse.redirect(
-      new URL(context.returnTo || "/", process.env.APP_BASE_URL)
+      new URL(context.returnTo || '/', process.env.APP_BASE_URL),
     );
   },
 });

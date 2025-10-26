@@ -1,15 +1,15 @@
-import {
+import type {
   PrismaClient,
   VocabularyNoteReviewLog as VocabularyNoteReviewLogDAO,
-} from "../../prisma/generated/prisma-client";
-import { VocabularyNoteReviewLog } from "../models/VocabularyNoteReviewLog";
+} from '../../prisma/generated/prisma-client';
+import { VocabularyNoteReviewLog } from '../models/VocabularyNoteReviewLog';
 
 export class VocabularyNoteReviewLogRepository {
   constructor(private readonly prismaClient: PrismaClient) {}
 
   async findAll() {
     return this.prismaClient.vocabularyNote.findMany({
-      orderBy: { updatedAt: "desc" },
+      orderBy: { updatedAt: 'desc' },
     });
   }
 
@@ -28,13 +28,13 @@ export class VocabularyNoteReviewLogRepository {
 }
 
 export const toVocabularyNoteReviewLog = (
-  data: VocabularyNoteReviewLogDAO
+  data: VocabularyNoteReviewLogDAO,
 ): VocabularyNoteReviewLog => {
   return new VocabularyNoteReviewLog({ ...data });
 };
 
 export const toVocabularyNoteReviewLogDAO = (
-  data: VocabularyNoteReviewLog
+  data: VocabularyNoteReviewLog,
 ): VocabularyNoteReviewLogDAO => {
   return {
     ...data,

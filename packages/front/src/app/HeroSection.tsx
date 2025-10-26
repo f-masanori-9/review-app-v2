@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import { useUser } from "@auth0/nextjs-auth0";
-import { Typography, Box } from "@mui/material";
-import { LoginButtons } from "./LoginButtons";
+import { useUser } from '@auth0/nextjs-auth0';
+import { Box, Typography } from '@mui/material';
+import Image from 'next/image';
+import { LoginButtons } from './LoginButtons';
 
 export const HeroSection = () => {
   const { user } = useUser();
@@ -43,7 +43,7 @@ export const HeroSection = () => {
           width={90}
         />
       </Box>
-      
+
       <Box
         sx={{
           display: 'flex',
@@ -67,7 +67,7 @@ export const HeroSection = () => {
           効率的な学習をサポート
         </Typography>
       </Box>
-      
+
       <Typography
         variant="body1"
         sx={{
@@ -79,7 +79,7 @@ export const HeroSection = () => {
         ReviNotes
         は、「復習の回数」を見える化し、効率的な学習をサポートするアプリです。語学の単語はもちろん、資格試験の用語、仕事の知識、趣味のスキルなど、あらゆる学習内容を記録し、効果的に復習できます。
       </Typography>
-      
+
       <Typography
         variant="body1"
         sx={{
@@ -90,7 +90,7 @@ export const HeroSection = () => {
       >
         「どれを何回復習したか」が一目でわかるから、忘れやすいポイントを重点的に学習可能。スキマ時間を活用しながら、あなたの知識を確実に積み上げていきましょう！
       </Typography>
-      
+
       {!user && <LoginButtons />}
     </Box>
   );

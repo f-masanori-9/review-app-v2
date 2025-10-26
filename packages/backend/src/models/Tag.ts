@@ -16,7 +16,7 @@ export class Tag {
   }
 
   static createNew(
-    params: Omit<ExcludeMethods<Tag>, "id" | "createdAt" | "updatedAt">
+    params: Omit<ExcludeMethods<Tag>, 'id' | 'createdAt' | 'updatedAt'>,
   ) {
     return new Tag({
       id: crypto.randomUUID(),
@@ -29,7 +29,7 @@ export class Tag {
   }
 
   static createWithId(
-    params: Omit<ExcludeMethods<Tag>, "createdAt" | "updatedAt">
+    params: Omit<ExcludeMethods<Tag>, 'createdAt' | 'updatedAt'>,
   ) {
     return new Tag({
       id: params.id,

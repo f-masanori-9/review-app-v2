@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   Button,
@@ -7,9 +7,9 @@ import {
   DialogTitle,
   Stack,
   TextField,
-} from "@mui/material";
-import { FC, useState } from "react";
-import { AddTagDialogPresenterProps } from "../types/tag";
+} from '@mui/material';
+import { type FC, useState } from 'react';
+import type { AddTagDialogPresenterProps } from '../types/tag';
 
 const AddTagDialogPresenter: FC<AddTagDialogPresenterProps> = ({
   isOpen,
@@ -25,7 +25,7 @@ const AddTagDialogPresenter: FC<AddTagDialogPresenterProps> = ({
       maxWidth="sm"
       fullWidth
       sx={{
-        "& .MuiDialog-paper": {
+        '& .MuiDialog-paper': {
           borderRadius: 2,
           margin: 1,
         },
@@ -33,8 +33,8 @@ const AddTagDialogPresenter: FC<AddTagDialogPresenterProps> = ({
     >
       <DialogTitle
         sx={{
-          fontWeight: "bold",
-          fontSize: "1.25rem",
+          fontWeight: 'bold',
+          fontSize: '1.25rem',
         }}
       >
         新しいタグを追加
@@ -49,7 +49,7 @@ const AddTagDialogPresenter: FC<AddTagDialogPresenterProps> = ({
             onChange={(e) => onContentChange(e.target.value)}
             variant="outlined"
             sx={{
-              "& .MuiOutlinedInput-root": {
+              '& .MuiOutlinedInput-root': {
                 borderRadius: 2,
               },
             }}
@@ -58,8 +58,8 @@ const AddTagDialogPresenter: FC<AddTagDialogPresenterProps> = ({
             <Button
               onClick={onClose}
               sx={{
-                textTransform: "none",
-                fontWeight: "medium",
+                textTransform: 'none',
+                fontWeight: 'medium',
               }}
             >
               キャンセル
@@ -69,8 +69,8 @@ const AddTagDialogPresenter: FC<AddTagDialogPresenterProps> = ({
               onClick={onSubmit}
               disabled={!content.trim()}
               sx={{
-                textTransform: "none",
-                fontWeight: "bold",
+                textTransform: 'none',
+                fontWeight: 'bold',
                 borderRadius: 2,
               }}
             >
@@ -87,17 +87,17 @@ export const AddTagDialog: FC<{
   isOpen: boolean;
   onClose: (tagName?: string) => void;
 }> = ({ isOpen, onClose }) => {
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState('');
 
   const handleClose = () => {
     onClose();
-    setContent("");
+    setContent('');
   };
 
   const handleSubmit = () => {
     if (content.trim()) {
       onClose(content.trim());
-      setContent("");
+      setContent('');
     }
   };
 

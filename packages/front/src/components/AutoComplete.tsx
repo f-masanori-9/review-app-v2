@@ -1,12 +1,12 @@
+import { type FC, useState } from 'react';
 import Select, {
-  ActionMeta,
+  type ActionMeta,
   components,
-  OnChangeValue,
-  OptionProps,
-  StylesConfig,
-} from "react-select";
-import { FC, useState } from "react";
-import { Button } from "./Buttons/Button";
+  type OnChangeValue,
+  type OptionProps,
+  type StylesConfig,
+} from 'react-select';
+import { Button } from './Buttons/Button';
 
 export interface AutoCompleteOption {
   readonly value: string;
@@ -20,15 +20,15 @@ export interface AutoCompleteOption {
 
 const styles: StylesConfig<AutoCompleteOption, true> = {
   multiValue: (base, state) => {
-    return state.data.isFixed ? { ...base, backgroundColor: "gray" } : base;
+    return state.data.isFixed ? { ...base, backgroundColor: 'gray' } : base;
   },
   multiValueLabel: (base, state) => {
     return state.data.isFixed
-      ? { ...base, fontWeight: "bold", color: "white", paddingRight: 6 }
+      ? { ...base, fontWeight: 'bold', color: 'white', paddingRight: 6 }
       : base;
   },
   multiValueRemove: (base, state) => {
-    return state.data.isFixed ? { ...base, display: "none" } : base;
+    return state.data.isFixed ? { ...base, display: 'none' } : base;
   },
 };
 
@@ -39,7 +39,7 @@ const orderOptions = (values: readonly AutoCompleteOption[]) => {
 };
 
 const Option = (props: OptionProps<AutoCompleteOption>) => {
-  console.log("Option", props);
+  console.log('Option', props);
   if (props.data.createButton) {
     return (
       <Button
@@ -53,9 +53,9 @@ const Option = (props: OptionProps<AutoCompleteOption>) => {
 
 const filterOption = (
   candidate: { label: string; value: string; data: AutoCompleteOption },
-  input: string
+  input: string,
 ) => {
-  console.log("filterOption", candidate, input);
+  console.log('filterOption', candidate, input);
   return true;
 };
 
@@ -63,7 +63,7 @@ type Props = {
   options: AutoCompleteOption[];
   onChange?: (
     value: readonly AutoCompleteOption[],
-    actionMeta: ActionMeta<AutoCompleteOption>
+    actionMeta: ActionMeta<AutoCompleteOption>,
   ) => void;
   placeholder?: string;
   defaultValueIds?: string[];
@@ -75,24 +75,24 @@ export const AutoComplete: FC<Props> = ({
   defaultValueIds = [],
 }) => {
   const defaultValues = options.filter((v) =>
-    defaultValueIds.includes(v.value)
+    defaultValueIds.includes(v.value),
   );
   const [value, setValue] = useState<readonly AutoCompleteOption[]>(
-    orderOptions(defaultValues)
+    orderOptions(defaultValues),
   );
 
   const onChange = (
     newValue: OnChangeValue<AutoCompleteOption, true>,
-    actionMeta: ActionMeta<AutoCompleteOption>
+    actionMeta: ActionMeta<AutoCompleteOption>,
   ) => {
     switch (actionMeta.action) {
-      case "remove-value":
-      case "pop-value":
+      case 'remove-value':
+      case 'pop-value':
         if (actionMeta.removedValue.isFixed) {
           return;
         }
         break;
-      case "clear":
+      case 'clear':
         newValue = options.filter((v) => v.isFixed);
         break;
     }

@@ -1,11 +1,11 @@
-import { VocabularyNote } from "@/app/vocabularyNotes/types";
-import { tRPCClient } from "@/libs/tRPCClient";
-import { useCallback, useState } from "react";
-import useSWR, { mutate } from "swr";
-import useSWRImmutable from "swr/immutable";
+import { useCallback, useState } from 'react';
+import useSWR, { mutate } from 'swr';
+import useSWRImmutable from 'swr/immutable';
+import type { VocabularyNote } from '@/app/vocabularyNotes/types';
+import { tRPCClient } from '@/libs/tRPCClient';
 export const generateSWRKey = () => {
   return {
-    path: "vocabulary-notes",
+    path: 'vocabulary-notes',
   } as const;
 };
 
@@ -45,7 +45,7 @@ export const useMutateVocabularyNotes = () => {
         frontContent?: string;
         backContent?: string;
       },
-      addDummyLog?: boolean
+      addDummyLog?: boolean,
     ) => {
       mutate(
         generateSWRKey(),
@@ -72,10 +72,10 @@ export const useMutateVocabularyNotes = () => {
             return vn;
           });
         },
-        false
+        false,
       );
     },
-    []
+    [],
   );
 
   return {

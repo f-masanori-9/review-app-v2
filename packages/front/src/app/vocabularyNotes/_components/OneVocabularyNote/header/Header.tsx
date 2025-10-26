@@ -1,12 +1,12 @@
-import { Box, Chip, Stack, Typography } from "@mui/material";
-import { FC } from "react";
+import { Box, Chip, Stack, Typography } from '@mui/material';
+import type { FC } from 'react';
 
 export const Header: FC<{
   daysAgo: number;
   tags: { tagId: string; tagName: string }[];
 }> = ({ daysAgo, tags }) => {
   return (
-    <Stack height={"24px"} direction="row" spacing={2} alignItems="center">
+    <Stack height={'24px'} direction="row" spacing={2} alignItems="center">
       <Box>
         <Typography variant="body2" component="div" color="textSecondary">
           {daysAgo}日前

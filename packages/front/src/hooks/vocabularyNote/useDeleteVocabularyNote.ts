@@ -1,6 +1,6 @@
-import { tRPCClient } from "@/libs/tRPCClient";
-import { useCallback } from "react";
-import { useMutateVocabularyNotes } from "./useVocabularyNotes";
+import { useCallback } from 'react';
+import { tRPCClient } from '@/libs/tRPCClient';
+import { useMutateVocabularyNotes } from './useVocabularyNotes';
 
 export const useDeleteVocabularyNote = () => {
   const { mutate } = useMutateVocabularyNotes();
@@ -14,7 +14,7 @@ export const useDeleteVocabularyNote = () => {
 
       return;
     },
-    [mutate]
+    [mutate],
   );
 
   return { deleteVocabularyNote };

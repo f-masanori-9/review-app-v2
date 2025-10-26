@@ -1,8 +1,7 @@
-"use client";
+'use client';
 
-import { ChangeEventHandler, FC, useState } from "react";
-import React from "react";
-import { TextField } from "@mui/material";
+import { TextField } from '@mui/material';
+import React, { type ChangeEventHandler, type FC, useState } from 'react';
 
 export const TextAreaAutoSize: FC<{
   defaultValue: string;
@@ -13,8 +12,8 @@ export const TextAreaAutoSize: FC<{
   const ref = React.useRef<HTMLTextAreaElement>(null);
   React.useEffect(() => {
     if (ref.current) {
-      ref.current.style.height = "auto";
-      ref.current.style.height = ref.current.scrollHeight + "px";
+      ref.current.style.height = 'auto';
+      ref.current.style.height = ref.current.scrollHeight + 'px';
     }
   }, [value]);
 
@@ -30,26 +29,26 @@ export const TextAreaAutoSize: FC<{
       }}
       placeholder={placeholder}
       sx={{
-        "& .MuiOutlinedInput-root": {
+        '& .MuiOutlinedInput-root': {
           padding: 1.5,
           margin: 0.5,
-          border: "none",
-          "&:focus": {
-            outline: "none",
+          border: 'none',
+          '&:focus': {
+            outline: 'none',
           },
-          "& fieldset": {
-            border: "none",
+          '& fieldset': {
+            border: 'none',
           },
-          "&:hover fieldset": {
-            border: "none",
+          '&:hover fieldset': {
+            border: 'none',
           },
-          "&.Mui-focused fieldset": {
-            border: "none",
+          '&.Mui-focused fieldset': {
+            border: 'none',
           },
         },
-        "& .MuiInputBase-input": {
-          minHeight: "128px",
-          height: "auto",
+        '& .MuiInputBase-input': {
+          minHeight: '128px',
+          height: 'auto',
           padding: 0,
         },
       }}

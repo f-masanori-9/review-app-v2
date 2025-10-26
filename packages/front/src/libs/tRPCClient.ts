@@ -1,7 +1,6 @@
-import { TRPCRouter } from "@/_gen/types/presenters/tRPC/router";
-import { createTRPCClient, httpBatchLink } from "@trpc/client";
-
-import superjson from "superjson";
+import { createTRPCClient, httpBatchLink } from '@trpc/client';
+import superjson from 'superjson';
+import type { TRPCRouter } from '@/_gen/types/presenters/tRPC/router';
 
 let accessTokenDataCache: {
   token: string;
@@ -9,20 +8,20 @@ let accessTokenDataCache: {
 } | null = null;
 
 const getCurrentAccessToken = async () => {
-  if (typeof window === "undefined") return null;
+  if (typeof window === 'undefined') return null;
 
   // キャッシュの期限切れでなければキャッシュを返す
   if (
     accessTokenDataCache &&
     accessTokenDataCache.expiresAt > Date.now() / 1000
   ) {
-    console.log("Using cached access token:", accessTokenDataCache.token);
+    console.log('Using cached access token:', accessTokenDataCache.token);
     return accessTokenDataCache.token;
   }
 
-  console.log("Fetching new access token...");
+  console.log('Fetching new access token...');
 
-  const session = await fetch("/auth/access-token");
+  const session = await fetch('/auth/access-token');
   if (!session.ok) return null;
 
   const data = await session.json();
@@ -44,11 +43,11 @@ export const tRPCClient = createTRPCClient<TRPCRouter>({
         const idToken = await getCurrentAccessToken();
         if (!idToken) {
           console.warn(
-            "No access token available, returning empty Authorization header."
+            'No access token available, returning empty Authorization header.',
           );
           return {
             // If no token is available, return an empty Authorization header
-            Authorization: "",
+            Authorization: '',
           };
         }
         return {

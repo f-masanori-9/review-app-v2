@@ -1,9 +1,9 @@
-import { FC, MouseEventHandler } from "react";
-import { Button as MuiButton, Typography } from "@mui/material";
+import { Button as MuiButton, Typography } from '@mui/material';
+import type { FC, MouseEventHandler } from 'react';
 
 type ButtonProps = {
-  variant?: "outlined" | "filled";
-  size?: "small" | "medium" | "large";
+  variant?: 'outlined' | 'filled';
+  size?: 'small' | 'medium' | 'large';
   onClick?: MouseEventHandler<HTMLButtonElement>;
   title: string;
   isLoading?: boolean;
@@ -24,13 +24,13 @@ export const Button: FC<ButtonProps> = ({
       loading={isLoading}
       variant="outlined"
       sx={{
-        backgroundColor: "white", // 好きな色
+        backgroundColor: 'white', // 好きな色
       }}
       startIcon={startIcon}
     >
       <Typography
         sx={{
-          fontWeight: "bold",
+          fontWeight: 'bold',
         }}
       >
         {title}

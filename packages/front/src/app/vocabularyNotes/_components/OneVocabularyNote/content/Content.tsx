@@ -1,4 +1,4 @@
-import { Stack } from "@mui/material";
+import { Stack } from '@mui/material';
 
 export const Content: React.FC<{
   note: {
@@ -11,13 +11,13 @@ export const Content: React.FC<{
       <Stack height={24} justifyContent="center">
         <span
           style={{
-            fontWeight: "bold",
-            display: "-webkit-box",
+            fontWeight: 'bold',
+            display: '-webkit-box',
             WebkitLineClamp: 1,
-            WebkitBoxOrient: "vertical",
-            overflow: "hidden",
-            whiteSpace: "pre-wrap",
-            wordBreak: "break-word",
+            WebkitBoxOrient: 'vertical',
+            overflow: 'hidden',
+            whiteSpace: 'pre-wrap',
+            wordBreak: 'break-word',
           }}
         >
           {note.frontContent}
@@ -27,13 +27,13 @@ export const Content: React.FC<{
       <Stack height={56} justifyContent="center">
         <span
           style={{
-            fontWeight: "bold",
-            display: "-webkit-box",
+            fontWeight: 'bold',
+            display: '-webkit-box',
             WebkitLineClamp: 2,
-            WebkitBoxOrient: "vertical",
-            overflow: "hidden",
-            whiteSpace: "pre-wrap",
-            wordBreak: "break-word",
+            WebkitBoxOrient: 'vertical',
+            overflow: 'hidden',
+            whiteSpace: 'pre-wrap',
+            wordBreak: 'break-word',
           }}
         >
           {note.backContent}

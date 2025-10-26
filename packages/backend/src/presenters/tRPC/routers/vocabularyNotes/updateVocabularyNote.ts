@@ -1,20 +1,19 @@
-import { z } from "zod";
+import { TRPCError } from '@trpc/server';
+import { z } from 'zod';
+import { prismaClient } from '../../../../infra/prismaClient';
+import { VocabularyNoteRepository } from '../../../../repositories/VocabularyNoteRepository';
+import { CreateVocabularyNoteService } from '../../../../services/createVocabularyNote';
+import { authRequiredProcedure } from '../../trpc';
 
-import { authRequiredProcedure } from "../../trpc";
-import { CreateVocabularyNoteService } from "../../../../services/createVocabularyNote";
-import { VocabularyNoteRepository } from "../../../../repositories/VocabularyNoteRepository";
-import { TRPCError } from "@trpc/server";
-import { prismaClient } from "../../../../infra/prismaClient";
-
-const inputSchema = z.discriminatedUnion("kind", [
+const inputSchema = z.discriminatedUnion('kind', [
   z.object({
     id: z.string().uuid(),
-    kind: z.literal("frontContent"),
+    kind: z.literal('frontContent'),
     frontContent: z.string(),
   }),
   z.object({
     id: z.string().uuid(),
-    kind: z.literal("backContent"),
+    kind: z.literal('backContent'),
     backContent: z.string(),
   }),
 ]);
@@ -46,18 +45,18 @@ export const updateVocabularyNote = authRequiredProcedure
     // TODO: エラー時の処理をミドルウェアとして共通化
     if (!vocabularyNote) {
       throw new TRPCError({
-        code: "NOT_FOUND",
-        message: "Vocabulary note not found",
+        code: 'NOT_FOUND',
+        message: 'Vocabulary note not found',
       });
     }
 
     switch (input.kind) {
-      case "frontContent":
+      case 'frontContent':
         vocabularyNote = vocabularyNote.update({
           frontContent: input.frontContent,
         });
         break;
-      case "backContent":
+      case 'backContent':
         vocabularyNote = vocabularyNote.update({
           backContent: input.backContent,
         });

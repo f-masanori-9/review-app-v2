@@ -1,19 +1,18 @@
-import { Button } from "@/components/Buttons/Button";
+import { Box, Stack } from '@mui/material';
+import type React from 'react';
+import { FaPlay, FaPlus } from 'react-icons/fa';
+import type { ActionMeta } from 'react-select';
+import { Virtuoso } from 'react-virtuoso';
+import { Button } from '@/components/Buttons/Button';
 import {
-  AutoCompleteOption,
+  type AutoCompleteOption,
   CreatableAutoComplete,
-} from "@/components/CreatableAutoComplete";
-import { Loading } from "@/components/Loading";
-import { Box, Stack } from "@mui/material";
-import React from "react";
-import { FaPlay, FaPlus } from "react-icons/fa";
-import { ActionMeta } from "react-select";
-import { Virtuoso } from "react-virtuoso";
-import { AddTagDialog } from "../_components/AddTagDialog/AddTagDialog";
-import { OneVocabularyNote } from "../_components/OneVocabularyNote/OneVocabularyNote";
-
-import { EditVocabularyNoteDialog } from "@/components/EditVocabularyNoteDialog";
-import { VocabularyNote } from "../types";
+} from '@/components/CreatableAutoComplete';
+import { EditVocabularyNoteDialog } from '@/components/EditVocabularyNoteDialog';
+import { Loading } from '@/components/Loading';
+import { AddTagDialog } from '../_components/AddTagDialog/AddTagDialog';
+import { OneVocabularyNote } from '../_components/OneVocabularyNote/OneVocabularyNote';
+import type { VocabularyNote } from '../types';
 
 interface VocabularyNotesPresentationProps {
   isLoading: boolean;
@@ -24,7 +23,7 @@ interface VocabularyNotesPresentationProps {
   isLoadingAdding: boolean;
   onTagChange: (
     selected: readonly AutoCompleteOption[],
-    actionMeta: ActionMeta<AutoCompleteOption>
+    actionMeta: ActionMeta<AutoCompleteOption>,
   ) => void;
   onCreateTag: (option: AutoCompleteOption) => Promise<void>;
   onVocabularyNoteClick: ({ vnId }: { vnId: string }) => void;
@@ -40,11 +39,11 @@ const StartButton: React.FC<{
 }> = ({ onStartPlay, isLoadingAdding }) => (
   <Box
     sx={{
-      position: "fixed",
+      position: 'fixed',
       zIndex: 50,
-      bottom: "96px",
-      right: "8px",
-      cursor: "pointer",
+      bottom: '96px',
+      right: '8px',
+      cursor: 'pointer',
     }}
   >
     <Button
@@ -55,10 +54,10 @@ const StartButton: React.FC<{
       startIcon={
         <FaPlay
           style={{
-            border: "none",
-            borderRadius: "6px",
-            marginRight: "4px",
-            marginLeft: "4px",
+            border: 'none',
+            borderRadius: '6px',
+            marginRight: '4px',
+            marginLeft: '4px',
           }}
           color="#06b6d4"
           size={14}
@@ -74,11 +73,11 @@ const AddNoteButton: React.FC<{
 }> = ({ onAddNote, isLoadingAdding }) => (
   <Box
     sx={{
-      position: "fixed",
+      position: 'fixed',
       zIndex: 50,
-      bottom: "96px",
-      left: "8px",
-      cursor: "pointer",
+      bottom: '96px',
+      left: '8px',
+      cursor: 'pointer',
     }}
   >
     <Button
@@ -89,10 +88,10 @@ const AddNoteButton: React.FC<{
       startIcon={
         <FaPlus
           style={{
-            border: "none",
-            borderRadius: "6px",
-            marginRight: "4px",
-            marginLeft: "4px",
+            border: 'none',
+            borderRadius: '6px',
+            marginRight: '4px',
+            marginLeft: '4px',
           }}
           color="#06b6d4"
           size={14}
@@ -135,9 +134,9 @@ export const VocabularyNotesPresentation: React.FC<
         onCreateItem={onCreateTag}
       />
 
-      <Box sx={{ height: "calc(100vh - 60px )", pb: "180px" }}>
+      <Box sx={{ height: 'calc(100vh - 60px )', pb: '180px' }}>
         <Virtuoso
-          style={{ height: "100%" }}
+          style={{ height: '100%' }}
           data={filteredNotes}
           totalCount={filteredNotes.length}
           itemContent={(_, note) => (

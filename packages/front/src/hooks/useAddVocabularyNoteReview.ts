@@ -1,6 +1,6 @@
-import { useMutateVocabularyNotes } from "@/hooks/vocabularyNote/useVocabularyNotes";
-import { tRPCClient } from "@/libs/tRPCClient";
-import { useCallback } from "react";
+import { useCallback } from 'react';
+import { useMutateVocabularyNotes } from '@/hooks/vocabularyNote/useVocabularyNotes';
+import { tRPCClient } from '@/libs/tRPCClient';
 
 export const useAddVocabularyNoteReview = () => {
   const { mutateVocabularyNotesLocalOnly } = useMutateVocabularyNotes();
@@ -13,7 +13,7 @@ export const useAddVocabularyNoteReview = () => {
 
       mutateVocabularyNotesLocalOnly({ id: noteId }, true);
     },
-    [mutateVocabularyNotesLocalOnly]
+    [mutateVocabularyNotesLocalOnly],
   );
 
   return { addVocabularyNoteReview };

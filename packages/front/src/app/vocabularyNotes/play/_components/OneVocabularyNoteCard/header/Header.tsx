@@ -1,47 +1,27 @@
-import { ReviewButton } from "@/components/Buttons/ReviewButton";
-import { Box, IconButton, Typography } from "@mui/material";
-import { FaEdit } from "react-icons/fa";
+import { Box, Typography } from '@mui/material';
+import { ReviewButton } from '@/components/Buttons/ReviewButton';
 
 export const Header: React.FC<{
   onClickReviewButton: (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => void;
   allCardsCount: number;
   cardOrder: number;
   reviewCount: number;
-  onEdit: () => void;
-}> = ({
-  onClickReviewButton,
-  allCardsCount,
-  cardOrder,
-  reviewCount,
-  onEdit,
-}) => {
+}> = ({ onClickReviewButton, allCardsCount, cardOrder, reviewCount }) => {
   return (
     <Box
       display="flex"
       justifyContent="space-between"
       alignItems="center"
-      width={"100%"}
+      width={'100%'}
     >
       <Typography variant="h6" color="text.secondary">
         {cardOrder} / {allCardsCount}
       </Typography>
 
-      <Box display="flex" gap={1}>
-        <IconButton
-          onClick={onEdit}
-          size="small"
-          sx={{ color: "primary.main" }}
-        >
-          <FaEdit size={16} />
-        </IconButton>
-        <Box display="flex" alignItems="center" gap={1}>
-          <ReviewButton
-            onClick={onClickReviewButton}
-            reviewCount={reviewCount}
-          />
-        </Box>
+      <Box display="flex" gap={1} alignItems="center">
+        <ReviewButton onClick={onClickReviewButton} reviewCount={reviewCount} />
       </Box>
     </Box>
   );

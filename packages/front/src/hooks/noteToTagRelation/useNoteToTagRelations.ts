@@ -1,6 +1,6 @@
-import { tRPCClient } from "@/libs/tRPCClient";
-import { useCallback } from "react";
-import useSWR, { mutate } from "swr";
+import { useCallback } from 'react';
+import useSWR, { mutate } from 'swr';
+import { tRPCClient } from '@/libs/tRPCClient';
 
 type NoteToTagRelation = {
   readonly id: string;
@@ -10,7 +10,7 @@ type NoteToTagRelation = {
 };
 export const generateSWRKey = (arg: { noteId: string }) => {
   return {
-    path: "useNoteToTagRelations",
+    path: 'useNoteToTagRelations',
     query: {
       noteId: arg.noteId,
     },
@@ -33,7 +33,7 @@ export const useMutateNoteToTagRelations = () => {
     async ({ noteId }: { noteId: string }) => {
       await mutate<NoteToTagRelation>(generateSWRKey({ noteId }));
     },
-    []
+    [],
   );
 
   return { mutateNoteToTagRelations };

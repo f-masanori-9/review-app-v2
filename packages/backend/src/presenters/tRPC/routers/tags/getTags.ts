@@ -1,6 +1,6 @@
-import { z } from "zod";
+import { z } from 'zod';
 
-import { authRequiredProcedure } from "../../trpc";
+import { authRequiredProcedure } from '../../trpc';
 
 const inputSchema = z.object({});
 
@@ -12,7 +12,7 @@ const outputSchema = z.object({
       createdAt: z.date(),
       updatedAt: z.date(),
       order: z.number(),
-    })
+    }),
   ),
 });
 
@@ -26,7 +26,7 @@ export const getTags = authRequiredProcedure
     const user = ctx.user;
     const tags = await ctx.dbClient.tag.findMany({
       where: { userId: user.id },
-      orderBy: { createdAt: "desc" },
+      orderBy: { createdAt: 'desc' },
     });
     return { tags };
   });

@@ -1,9 +1,11 @@
-"use client";
+'use client';
 
-import { EditVocabularyNoteDialog } from "@/components/EditVocabularyNoteDialog";
-import { Box } from "@mui/material";
-import { Virtuoso } from "react-virtuoso";
-import { OneVocabularyNoteCard } from "../_components/OneVocabularyNoteCard/OneVocabularyNoteCard";
+import { Box, Stack } from '@mui/material';
+import type { ActionMeta } from 'react-select';
+import { Virtuoso } from 'react-virtuoso';
+import type { AutoCompleteOption } from '@/components/CreatableAutoComplete';
+import { CreatableAutoComplete } from '@/components/CreatableAutoComplete';
+import { OneVocabularyNoteCard } from '../_components/OneVocabularyNoteCard/OneVocabularyNoteCard';
 
 type VocabularyNote = {
   id: string;
@@ -14,50 +16,47 @@ type VocabularyNote = {
 };
 
 interface VocabularyNoteListProps {
-  viewedVocabularyNotes: VocabularyNote[];
-  onEdit: (id: string) => void;
+  viewedVocabularyNoteIds: string[];
 }
 
 const VocabularyNoteList = ({
-  viewedVocabularyNotes,
-  onEdit,
+  viewedVocabularyNoteIds,
 }: VocabularyNoteListProps) => {
   return (
     <Virtuoso
       style={{
-        width: "100vw",
-        overflowX: "scroll",
-        height: "calc(100vh - 100px)",
-        scrollSnapType: "x mandatory",
-        overflowY: "hidden",
+        width: '100vw',
+        overflowX: 'scroll',
+        height: 'calc(100vh - 180px)',
+        scrollSnapType: 'x mandatory',
+        overflowY: 'hidden',
       }}
       overscan={4}
-      data={viewedVocabularyNotes}
+      data={viewedVocabularyNoteIds}
       horizontalDirection
-      totalCount={viewedVocabularyNotes.length}
+      totalCount={viewedVocabularyNoteIds.length}
       components={{
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         Item: ({ item: _, ...p }) => (
           <div
             {...p}
             style={{
-              display: "inline-block",
-              overflowAnchor: "none",
-              height: "calc(100vh - 100px)",
-              width: "100vw",
+              display: 'inline-block',
+              overflowAnchor: 'none',
+              height: 'calc(100vh - 180px)',
+              width: '100vw',
             }}
           >
             {p.children}
           </div>
         ),
       }}
-      itemContent={(index, n) => (
+      itemContent={(index, vocabularyNoteId) => (
         <VocabularyNoteCardWrapper
-          key={n.id}
-          note={n}
+          key={vocabularyNoteId}
+          vocabularyNoteId={vocabularyNoteId}
           index={index}
-          allCardsCount={viewedVocabularyNotes.length}
-          onEdit={onEdit}
+          allCardsCount={viewedVocabularyNoteIds.length}
         />
       )}
     />
@@ -65,79 +64,70 @@ const VocabularyNoteList = ({
 };
 
 interface VocabularyNoteCardWrapperProps {
-  note: VocabularyNote;
+  vocabularyNoteId: string;
   index: number;
   allCardsCount: number;
-  onEdit: (id: string) => void;
 }
 
 const VocabularyNoteCardWrapper = ({
-  note,
+  vocabularyNoteId,
   index,
   allCardsCount,
-  onEdit,
 }: VocabularyNoteCardWrapperProps) => {
   return (
     <Box
       sx={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        height: "100%",
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '100%',
       }}
     >
       <OneVocabularyNoteCard
-        vocabularyNoteId={note.id}
-        frontContent={note.frontContent}
-        backContent={note.backContent}
-        reviewCount={note.reviewLogs.length}
+        vocabularyNoteId={vocabularyNoteId}
         allCardsCount={allCardsCount}
         cardOrder={index + 1}
-        onEdit={() => onEdit(note.id)}
       />
     </Box>
-  );
-};
-
-interface EditDialogProps {
-  selectedVN: { id: string } | null;
-  onClose: () => void;
-}
-
-const EditDialog = ({ selectedVN, onClose }: EditDialogProps) => {
-  if (!selectedVN) return null;
-
-  return (
-    <EditVocabularyNoteDialog
-      vocabularyNoteId={selectedVN.id}
-      onClose={onClose}
-    />
   );
 };
 
 interface VocabularyNotesPlayPresentationProps {
-  viewedVocabularyNotes: VocabularyNote[];
-  selectedVN: { id: string } | null;
-  onEdit: (id: string) => void;
-  onCloseEdit: () => void;
+  viewedVocabularyNoteIds: string[];
+  selectedTagIds: string[];
+  tags: Array<{ id: string; name: string }>;
+  onTagChange: (
+    selected: readonly AutoCompleteOption[],
+    actionMeta: ActionMeta<AutoCompleteOption>,
+  ) => void;
+  onCreateTag: (option: AutoCompleteOption) => Promise<void>;
 }
 
 export const VocabularyNotesPlayPresentation = ({
-  viewedVocabularyNotes,
-  selectedVN,
-  onEdit,
-  onCloseEdit,
+  viewedVocabularyNoteIds,
+  selectedTagIds,
+  tags,
+  onTagChange,
+  onCreateTag,
 }: VocabularyNotesPlayPresentationProps) => {
   return (
-    <Box>
-      <VocabularyNoteList
-        viewedVocabularyNotes={viewedVocabularyNotes}
-        onEdit={onEdit}
-      />
-      {selectedVN && (
-        <EditDialog selectedVN={selectedVN} onClose={onCloseEdit} />
-      )}
-    </Box>
+    <Stack spacing={1}>
+      <Box p={1}>
+        <CreatableAutoComplete
+          options={tags.map((tag) => ({
+            value: tag.id,
+            label: tag.name,
+          }))}
+          onChange={onTagChange}
+          placeholder="タグを選択"
+          onCreateItem={onCreateTag}
+          defaultValueIds={selectedTagIds}
+        />
+      </Box>
+      <Box>
+        <VocabularyNoteList viewedVocabularyNoteIds={viewedVocabularyNoteIds} />
+      </Box>
+    </Stack>
   );
 };
 

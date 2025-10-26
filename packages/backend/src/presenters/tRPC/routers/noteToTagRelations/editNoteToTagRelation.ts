@@ -1,7 +1,7 @@
-import { z } from "zod";
+import { z } from 'zod';
 
-import { NoteToTagRelation } from "../../../../models/NoteToTagRelation";
-import { authRequiredProcedure } from "../../trpc";
+import { NoteToTagRelation } from '../../../../models/NoteToTagRelation';
+import { authRequiredProcedure } from '../../trpc';
 
 const inputSchema = z.object({
   noteId: z.string(),
@@ -27,11 +27,11 @@ export const editNoteToTagRelation = authRequiredProcedure
       });
     const tagRelationsToDelete = currentTagRelations.filter(
       (relation) =>
-        !tagIds.includes(relation.tagId) && relation.userId === user.id
+        !tagIds.includes(relation.tagId) && relation.userId === user.id,
     );
     const tagRelationsToCreate = tagIds.flatMap((tagId) => {
       const isExistingTagRelation = !!currentTagRelations.find(
-        (relation) => relation.tagId === tagId && relation.userId === user.id
+        (relation) => relation.tagId === tagId && relation.userId === user.id,
       );
       if (isExistingTagRelation) return [];
       return NoteToTagRelation.createNew({

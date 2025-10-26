@@ -1,6 +1,6 @@
-import { tRPCClient } from "@/libs/tRPCClient";
-import { useCallback } from "react";
-import { useMutateTags } from "./useTags";
+import { useCallback } from 'react';
+import { tRPCClient } from '@/libs/tRPCClient';
+import { useMutateTags } from './useTags';
 
 export const useDeleteTag = () => {
   const { mutateTags } = useMutateTags();
@@ -11,7 +11,7 @@ export const useDeleteTag = () => {
       });
       await mutateTags();
     },
-    [mutateTags]
+    [mutateTags],
   );
 
   return { deleteTag };

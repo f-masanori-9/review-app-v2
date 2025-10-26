@@ -1,8 +1,8 @@
-import {
+import type {
   PrismaClient,
   Tag as TagModel,
-} from "../../prisma/generated/prisma-client";
-import { Tag } from "../models/Tag";
+} from '../../prisma/generated/prisma-client';
+import { Tag } from '../models/Tag';
 
 export class TagRepository {
   constructor(private readonly prismaClient: PrismaClient) {}

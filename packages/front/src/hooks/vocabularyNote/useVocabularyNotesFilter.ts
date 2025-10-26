@@ -1,6 +1,6 @@
-import { VocabularyNote } from "@/app/vocabularyNotes/types";
-import { intersection } from "lodash";
-import { useMemo, useState } from "react";
+import { intersection } from 'lodash';
+import { useMemo, useState } from 'react';
+import type { VocabularyNote } from '@/app/vocabularyNotes/types';
 
 export const useVocabularyNotesFilter = (vocabularyNotes: VocabularyNote[]) => {
   const [selectedTagIds, setSelectedTagIds] = useState<string[]>([]);

@@ -1,11 +1,13 @@
-"use client";
+'use client';
 
-import { useEffect, useMemo } from "react";
-import { debounce } from "lodash";
-import { useUpdateVocabularyNote } from "./vocabularyNote/useUpdateVocabularyNote";
+import { debounce } from 'lodash';
+import { useEffect, useMemo } from 'react';
+import { useUpdateVocabularyNote } from './vocabularyNote/useUpdateVocabularyNote';
 
-export const useUpdateVocabularyNoteDebounced = () => {
-  const { updateNote } = useUpdateVocabularyNote();
+export const useUpdateVocabularyNoteDebounced = (options?: {
+  isMutateVocabularyNotes?: boolean;
+}) => {
+  const { updateNote } = useUpdateVocabularyNote(options);
 
   const updateVocabularyNoteDebounced = useMemo(() => {
     return debounce(updateNote, 1000, {

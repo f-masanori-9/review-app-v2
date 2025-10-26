@@ -1,6 +1,6 @@
-import { tRPCClient } from "@/libs/tRPCClient";
-import { useCallback, useState } from "react";
-import { useMutateVocabularyNotes } from "./useVocabularyNotes";
+import { useCallback, useState } from 'react';
+import { tRPCClient } from '@/libs/tRPCClient';
+import { useMutateVocabularyNotes } from './useVocabularyNotes';
 
 export const useAddVocabularyNote = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -13,8 +13,8 @@ export const useAddVocabularyNote = () => {
         const vocabularyNote =
           await tRPCClient.vocabularyNotes.createVocabularyNote.mutate({
             noteId: crypto.randomUUID(),
-            frontContent: "未入力",
-            backContent: "🥚",
+            frontContent: '未入力',
+            backContent: '🥚',
             relatedTagIds: tagIds,
           });
 
@@ -27,7 +27,7 @@ export const useAddVocabularyNote = () => {
         setIsLoading(false);
       }
     },
-    [mutateVocabularyNotes]
+    [mutateVocabularyNotes],
   );
 
   return { addVocabularyNote, isLoading };

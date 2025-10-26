@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { FC, useEffect, useRef, useState } from "react";
-import { tRPCClient } from "@/libs/tRPCClient";
-import { EditVocabularyNoteDialogPresentation } from "./_presentations/EditVocabularyNoteDialogPresentation";
-import { VocabularyNote } from "./types";
+import { type FC, useEffect, useRef, useState } from 'react';
+import { tRPCClient } from '@/libs/tRPCClient';
+import { EditVocabularyNoteDialogPresentation } from './_presentations/EditVocabularyNoteDialogPresentation';
+import type { VocabularyNote } from './types';
 
 export const EditVocabularyNoteDialog: FC<{
   vocabularyNoteId: string;
@@ -13,7 +13,7 @@ export const EditVocabularyNoteDialog: FC<{
   const isFirstFetched = useRef(false);
   const [isLoading, setIsLoading] = useState(false);
   const [vocabularyNote, setVocabularyNote] = useState<VocabularyNote | null>(
-    null
+    null,
   );
 
   useEffect(() => {
@@ -44,7 +44,7 @@ export const EditVocabularyNoteDialogCore: FC<{
   const isFirstFetched = useRef(false);
   const [isLoading, setIsLoading] = useState(false);
   const [vocabularyNote, setVocabularyNote] = useState<VocabularyNote | null>(
-    null
+    null,
   );
 
   useEffect(() => {

@@ -1,8 +1,9 @@
-"use client";
+'use client';
 
-import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
-import React, { FC } from "react";
-import { Paper, Box } from "@mui/material";
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
+import { Box, Paper } from '@mui/material';
+import type React from 'react';
+import type { FC } from 'react';
 
 export const DropDownMenu: FC<{
   menuButtonChildren: React.ReactNode;
@@ -24,12 +25,12 @@ export const DropDownMenu: FC<{
       <MenuItems anchor="bottom">
         <Paper
           sx={{
-            bgcolor: "white",
+            bgcolor: 'white',
             p: 1,
             borderRadius: 1,
             border: 1,
-            borderColor: "divider",
-            width: "80px",
+            borderColor: 'divider',
+            width: '80px',
           }}
         >
           {items.map(({ key, children, onClick }) => {
@@ -37,8 +38,8 @@ export const DropDownMenu: FC<{
               <MenuItem key={key}>
                 <Box
                   sx={{
-                    display: "flex",
-                    alignItems: "center",
+                    display: 'flex',
+                    alignItems: 'center',
                     gap: 0.5,
                   }}
                   onClick={() => {

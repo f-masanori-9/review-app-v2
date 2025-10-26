@@ -1,10 +1,10 @@
-import { tRPCClient } from "@/libs/tRPCClient";
-import { useCallback } from "react";
-import useSWR, { mutate } from "swr";
+import { useCallback } from 'react';
+import useSWR, { mutate } from 'swr';
+import { tRPCClient } from '@/libs/tRPCClient';
 
 export const generateSWRKey = () => {
   return {
-    path: "useTags",
+    path: 'useTags',
   } as const;
 };
 

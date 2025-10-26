@@ -1,1 +1,1 @@
-export type { TRPCRouter } from "./presenters/tRPC/router";
+export type { TRPCRouter } from './presenters/tRPC/router';

@@ -1,6 +1,6 @@
-import { PrismaClient } from "../../prisma/generated/prisma-client";
-import { NoteToTagRelation } from "../models/NoteToTagRelation";
-import { VocabularyNote } from "../models/VocabularyNote";
+import type { PrismaClient } from '../../prisma/generated/prisma-client';
+import { NoteToTagRelation } from '../models/NoteToTagRelation';
+import { VocabularyNote } from '../models/VocabularyNote';
 
 export class CreateVocabularyNoteService {
   constructor(private dbClient: PrismaClient) {}

@@ -1,2 +1,5 @@
-export { EditVocabularyNoteDialog, EditVocabularyNoteDialogCore } from "./EditVocabularyNoteDialog";
-export { EditVocabularyNoteDialogPresentation } from "./_presentations/EditVocabularyNoteDialogPresentation";
+export { EditVocabularyNoteDialogPresentation } from './_presentations/EditVocabularyNoteDialogPresentation';
+export {
+  EditVocabularyNoteDialog,
+  EditVocabularyNoteDialogCore,
+} from './EditVocabularyNoteDialog';

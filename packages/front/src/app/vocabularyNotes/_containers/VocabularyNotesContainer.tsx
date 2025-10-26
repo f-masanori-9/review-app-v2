@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { AutoCompleteOption } from "@/components/CreatableAutoComplete";
-import { useAddTagDialog } from "@/hooks/tag/useAddTagDialog";
-import { useCreateTag } from "@/hooks/tag/useCreateTag";
-import { useMutateTags, useTags } from "@/hooks/tag/useTags";
-import { useAddVocabularyNote } from "@/hooks/vocabularyNote/useAddVocabularyNote";
-import { useVocabularyNoteDialog } from "@/hooks/vocabularyNote/useVocabularyNoteDialog";
-import { useVocabularyNotesSWRImmutable } from "@/hooks/vocabularyNote/useVocabularyNotes";
-import { useVocabularyNotesFilter } from "@/hooks/vocabularyNote/useVocabularyNotesFilter";
-import { useRouter } from "next/navigation";
-import { useCallback } from "react";
-import { VocabularyNotesPresentation } from "../_presentations/VocabularyNotesPresentation";
+import { useRouter } from 'next/navigation';
+import { useCallback } from 'react';
+import type { AutoCompleteOption } from '@/components/CreatableAutoComplete';
+import { useAddTagDialog } from '@/hooks/tag/useAddTagDialog';
+import { useCreateTag } from '@/hooks/tag/useCreateTag';
+import { useMutateTags, useTags } from '@/hooks/tag/useTags';
+import { useAddVocabularyNote } from '@/hooks/vocabularyNote/useAddVocabularyNote';
+import { useVocabularyNoteDialog } from '@/hooks/vocabularyNote/useVocabularyNoteDialog';
+import { useVocabularyNotesSWRImmutable } from '@/hooks/vocabularyNote/useVocabularyNotes';
+import { useVocabularyNotesFilter } from '@/hooks/vocabularyNote/useVocabularyNotesFilter';
+import { VocabularyNotesPresentation } from '../_presentations/VocabularyNotesPresentation';
 
 export const VocabularyNotesContainer = () => {
   const { data: vocabularyNotes = [], isLoading } =
@@ -36,10 +36,10 @@ export const VocabularyNotesContainer = () => {
     async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
       e.stopPropagation();
       const queryParams = new URLSearchParams();
-      selectedTagIds.forEach((id) => queryParams.append("tagIds", id));
+      selectedTagIds.forEach((id) => queryParams.append('tagIds', id));
       router.push(`/vocabularyNotes/play?${queryParams.toString()}`);
     },
-    [router, selectedTagIds]
+    [router, selectedTagIds],
   );
 
   const onClickAddNote = useCallback(async () => {
@@ -55,7 +55,7 @@ export const VocabularyNotesContainer = () => {
     (selected: readonly AutoCompleteOption[]) => {
       setSelectedTagIds(selected.map((s) => s.value));
     },
-    [setSelectedTagIds]
+    [setSelectedTagIds],
   );
 
   const handleCreateTag = useCallback(
@@ -67,14 +67,14 @@ export const VocabularyNotesContainer = () => {
         mutateTags();
       });
     },
-    [createTagWithId, mutateTags]
+    [createTagWithId, mutateTags],
   );
 
   const handleVocabularyNoteClick = useCallback(
     ({ vnId }: { vnId: string }) => {
       openDialog(vnId);
     },
-    [openDialog]
+    [openDialog],
   );
 
   const handleAddTagDialogClose = useCallback(
@@ -83,7 +83,7 @@ export const VocabularyNotesContainer = () => {
       if (!tagName) return;
       createTag({ tagName });
     },
-    [closeAddTagDialog, createTag]
+    [closeAddTagDialog, createTag],
   );
 
   return (

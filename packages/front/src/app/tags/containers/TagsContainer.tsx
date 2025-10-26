@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { useCreateTag } from "@/hooks/tag/useCreateTag";
-import { useDeleteTag } from "@/hooks/tag/useDeleteTag";
-import { useTags } from "@/hooks/tag/useTags";
-import { FC, useState } from "react";
-import { AddTagDialog } from "../components/AddTagDialog";
-import { TagsPresenter } from "../components/TagsPresenter";
+import { type FC, useState } from 'react';
+import { useCreateTag } from '@/hooks/tag/useCreateTag';
+import { useDeleteTag } from '@/hooks/tag/useDeleteTag';
+import { useTags } from '@/hooks/tag/useTags';
+import { AddTagDialog } from '../components/AddTagDialog';
+import { TagsPresenter } from '../components/TagsPresenter';
 
 export const TagsContainer: FC = () => {
   const { data: tags = [], isLoading } = useTags();
@@ -18,7 +18,7 @@ export const TagsContainer: FC = () => {
   };
 
   const handleDeleteTag = (tagId: string) => {
-    if (confirm("このタグを削除しますか？")) {
+    if (confirm('このタグを削除しますか？')) {
       deleteTag({ tagId });
     }
   };

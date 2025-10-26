@@ -18,8 +18,8 @@ export class VocabularyNote {
   static createNew(
     params: Omit<
       ExcludeMethods<VocabularyNote>,
-      "createdAt" | "updatedAt" | "type"
-    >
+      'createdAt' | 'updatedAt' | 'type'
+    >,
   ) {
     return new VocabularyNote({
       id: params.id,
@@ -33,8 +33,8 @@ export class VocabularyNote {
 
   update(
     params: Partial<
-      Omit<ExcludeMethods<VocabularyNote>, "createdAt" | "updatedAt">
-    >
+      Omit<ExcludeMethods<VocabularyNote>, 'createdAt' | 'updatedAt'>
+    >,
   ): VocabularyNote {
     return new VocabularyNote({
       ...this,

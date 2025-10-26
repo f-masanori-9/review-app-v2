@@ -1,9 +1,9 @@
-import { z } from "zod";
+import { z } from 'zod';
 
-import { authRequiredProcedure } from "../../trpc";
+import { authRequiredProcedure } from '../../trpc';
 
 const inputSchema = z.object({
-  tagId: z.string().min(1, "Tag id is required"),
+  tagId: z.string().min(1, 'Tag id is required'),
 });
 
 const outputSchema = z.object({
@@ -26,5 +26,5 @@ export const deleteTag = authRequiredProcedure
       },
     });
 
-    return { result: "Tag deleted successfully" };
+    return { result: 'Tag deleted successfully' };
   });

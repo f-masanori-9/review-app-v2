@@ -1,17 +1,16 @@
-"use client";
+'use client';
 
-import React, { FC, useCallback, useEffect, useState } from "react";
-import { useReward } from "react-rewards";
-
-import { useAddVocabularyNoteReview } from "@/hooks/useAddVocabularyNoteReview";
-import { useUpdateVocabularyNoteDebounced } from "@/hooks/useUpdateVocabularyNoteDebounced";
-import { useDeleteVocabularyNote } from "@/hooks/vocabularyNote/useDeleteVocabularyNote";
-import { useMutateVocabularyNotes } from "@/hooks/vocabularyNote/useVocabularyNotes";
-import { Menu, MenuItem, Stack } from "@mui/material";
-import { differenceInDays } from "date-fns";
-import { Content } from "./content/Content";
-import { Footer } from "./footer/Footer";
-import { Header } from "./header/Header";
+import { Menu, MenuItem, Stack } from '@mui/material';
+import { differenceInDays } from 'date-fns';
+import React, { type FC, useCallback, useEffect, useState } from 'react';
+import { useReward } from 'react-rewards';
+import { useAddVocabularyNoteReview } from '@/hooks/useAddVocabularyNoteReview';
+import { useUpdateVocabularyNoteDebounced } from '@/hooks/useUpdateVocabularyNoteDebounced';
+import { useDeleteVocabularyNote } from '@/hooks/vocabularyNote/useDeleteVocabularyNote';
+import { useMutateVocabularyNotes } from '@/hooks/vocabularyNote/useVocabularyNotes';
+import { Content } from './content/Content';
+import { Footer } from './footer/Footer';
+import { Header } from './header/Header';
 
 export const OneVocabularyNote: FC<{
   note: {
@@ -32,7 +31,7 @@ export const OneVocabularyNote: FC<{
   const { addVocabularyNoteReview } = useAddVocabularyNoteReview();
   const { mutate, isLoading: isLoadingMutate } = useMutateVocabularyNotes();
 
-  const { reward } = useReward("rewardId", "confetti");
+  const { reward } = useReward('rewardId', 'confetti');
   const [isReviewed, setIsReviewed] = useState(false);
 
   const { deleteVocabularyNote } = useDeleteVocabularyNote();
@@ -55,10 +54,10 @@ export const OneVocabularyNote: FC<{
   return (
     <Stack
       p={1}
-      direction={"column"}
+      direction={'column'}
       spacing={1}
       sx={{
-        transition: "background-color 0.3s ease",
+        transition: 'background-color 0.3s ease',
         backgroundColor: `rgba(59, 130, 246, ${opacity / 100})`,
       }}
       onClick={onClickCard}
@@ -99,7 +98,7 @@ export const OneVocabularyNote: FC<{
           setIsMenuOpen(false);
         }}
         handleDelete={() => {
-          if (confirm("このノートを削除しますか？")) {
+          if (confirm('このノートを削除しますか？')) {
             deleteVocabularyNote(note.id).then(() => {
               mutate();
             });
@@ -142,6 +141,6 @@ const getReviewOpacity = (count: number): number => {
   const maxOpacity = 100;
   return Math.min(
     Math.floor(((count / maxReviews) * maxOpacity) / 5) * 5,
-    maxOpacity
+    maxOpacity,
   );
 };

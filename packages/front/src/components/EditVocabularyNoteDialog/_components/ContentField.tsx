@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { TextField } from "@mui/material";
+import { TextField } from '@mui/material';
 
 interface ContentFieldProps {
   value: string;
@@ -22,8 +22,8 @@ export function ContentField({
       rows={rows}
       sx={{
         mb: 0.5,
-        "& .MuiOutlinedInput-root": {
-          padding: "6px 8px",
+        '& .MuiOutlinedInput-root': {
+          padding: '6px 8px',
         },
       }}
       value={value}

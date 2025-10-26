@@ -1,10 +1,10 @@
-import { z } from "zod";
+import { z } from 'zod';
 
-import { authRequiredProcedure } from "../../trpc";
+import { authRequiredProcedure } from '../../trpc';
 
 const inputSchema = z.object({
-  tagId: z.string().uuid("Invalid tag ID format").optional(),
-  tagName: z.string().max(100, "Tag name must be less than 100 characters"),
+  tagId: z.string().uuid('Invalid tag ID format').optional(),
+  tagName: z.string().max(100, 'Tag name must be less than 100 characters'),
 });
 //   z.object({
 //   tagName: z.string().min(1, "Tag name is required"),

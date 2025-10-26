@@ -1,6 +1,6 @@
-import { tRPCClient } from "@/libs/tRPCClient";
-import { useCallback } from "react";
-import { useMutateTags } from "./useTags";
+import { useCallback } from 'react';
+import { tRPCClient } from '@/libs/tRPCClient';
+import { useMutateTags } from './useTags';
 
 export const useCreateTag = () => {
   const { mutateTags } = useMutateTags();
@@ -12,7 +12,7 @@ export const useCreateTag = () => {
 
       await mutateTags();
     },
-    [mutateTags]
+    [mutateTags],
   );
 
   const createTagWithId = useCallback(
@@ -23,7 +23,7 @@ export const useCreateTag = () => {
       });
       await mutateTags();
     },
-    [mutateTags]
+    [mutateTags],
   );
 
   return { createTag, createTagWithId };

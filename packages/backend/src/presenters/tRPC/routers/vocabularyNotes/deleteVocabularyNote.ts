@@ -1,6 +1,6 @@
-import { z } from "zod";
+import { z } from 'zod';
 
-import { authRequiredProcedure } from "../../trpc";
+import { authRequiredProcedure } from '../../trpc';
 
 const inputSchema = z.object({
   noteId: z.string(),

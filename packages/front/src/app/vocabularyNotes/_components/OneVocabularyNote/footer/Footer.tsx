@@ -1,20 +1,35 @@
-import { ReviewButton } from "@/components/Buttons/ReviewButton";
-import { IconButton, Box } from "@mui/material";
-import { FC } from "react";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { Box, IconButton } from '@mui/material';
+import type { FC } from 'react';
+import { ReviewButton } from '@/components/Buttons/ReviewButton';
 export const Footer: FC<{
   reviewCount: number;
   isReviewed: boolean;
   isLoadingMutate: boolean;
   onClickReview: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   noteId: string;
-  onClickMenuButton?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-}> = ({ onClickReview, reviewCount, isReviewed, isLoadingMutate,
-    onClickMenuButton
- }) => {
+  onClickMenuButton?: (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => void;
+}> = ({
+  onClickReview,
+  reviewCount,
+  isReviewed,
+  isLoadingMutate,
+  onClickMenuButton,
+}) => {
   return (
-    <Box sx={{ display: "flex", justifyContent: "space-between", height: "32px" }}>
-      <Box sx={{ display: "flex", alignItems: "center", gap: 1, color: "text.secondary" }}>
+    <Box
+      sx={{ display: 'flex', justifyContent: 'space-between', height: '32px' }}
+    >
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 1,
+          color: 'text.secondary',
+        }}
+      >
         <ReviewButton
           onClick={onClickReview}
           //   onClick={async (e) => {

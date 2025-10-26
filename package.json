@@ -8,7 +8,9 @@
   "scripts": {
     "dev": "concurrently \"yarn workspace backend dev\" \"yarn workspace front dev\"",
     "build": "yarn workspace backend build && yarn workspace front build",
-    "lint": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
+    "lint": "biome check --write .",
+    "fix": "biome check --write .",
+    "fix:unsafe": "biome check --write --unsafe .",
     "backend": "yarn workspace backend",
     "front": "yarn workspace front"
   },
@@ -16,10 +18,7 @@
     "concurrently": "^9.1.2"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.3.1",
-    "@typescript-eslint/parser": "^8.34.1",
-    "eslint": "^9.29.0",
-    "eslint-plugin-unused-imports": "^4.1.4",
+    "@biomejs/biome": "^2.3.0",
     "typescript": "^5.8.3"
   }
 }

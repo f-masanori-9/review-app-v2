@@ -1,7 +1,6 @@
-"use client";
+'use client';
 
-import { Loading } from "@/components/Loading";
-import { Add as AddIcon, Delete as DeleteIcon } from "@mui/icons-material";
+import { Add as AddIcon, Delete as DeleteIcon } from '@mui/icons-material';
 import {
   Box,
   Button,
@@ -10,9 +9,10 @@ import {
   IconButton,
   Stack,
   Typography,
-} from "@mui/material";
-import { FC } from "react";
-import { TagsPresenterProps } from "../types/tag";
+} from '@mui/material';
+import type { FC } from 'react';
+import { Loading } from '@/components/Loading';
+import type { TagsPresenterProps } from '../types/tag';
 
 export const TagsPresenter: FC<TagsPresenterProps> = ({
   tags,
@@ -27,18 +27,18 @@ export const TagsPresenter: FC<TagsPresenterProps> = ({
   return (
     <Box
       sx={{
-        height: "calc(100vh - 64px)",
-        overflow: "auto",
+        height: 'calc(100vh - 64px)',
+        overflow: 'auto',
         p: 1,
-        bgcolor: "background.default",
+        bgcolor: 'background.default',
       }}
     >
       <Stack spacing={2}>
         <Box
           sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
           }}
         >
           <Typography variant="h4" component="h1" fontWeight="bold">
@@ -50,8 +50,8 @@ export const TagsPresenter: FC<TagsPresenterProps> = ({
             onClick={onAddTag}
             sx={{
               borderRadius: 2,
-              textTransform: "none",
-              fontWeight: "bold",
+              textTransform: 'none',
+              fontWeight: 'bold',
             }}
           >
             新しいタグを追加
@@ -61,11 +61,11 @@ export const TagsPresenter: FC<TagsPresenterProps> = ({
         {tags.length === 0 ? (
           <Card
             sx={{
-              textAlign: "center",
+              textAlign: 'center',
               py: 8,
-              bgcolor: "grey.50",
-              border: "2px dashed",
-              borderColor: "grey.300",
+              bgcolor: 'grey.50',
+              border: '2px dashed',
+              borderColor: 'grey.300',
             }}
           >
             <CardContent>
@@ -78,33 +78,33 @@ export const TagsPresenter: FC<TagsPresenterProps> = ({
             </CardContent>
           </Card>
         ) : (
-          <Stack spacing={1} pb={"100px"}>
+          <Stack spacing={1} pb={'100px'}>
             {tags.map((tag) => (
               <Card
                 key={tag.id}
                 variant="outlined"
                 sx={{
-                  transition: "all 0.2s ease-in-out",
-                  "&:hover": {
+                  transition: 'all 0.2s ease-in-out',
+                  '&:hover': {
                     boxShadow: 2,
-                    transform: "translateY(-1px)",
+                    transform: 'translateY(-1px)',
                   },
                 }}
               >
                 <CardContent
                   sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
                     py: 1,
-                    "&:last-child": { pb: 1 },
+                    '&:last-child': { pb: 1 },
                   }}
                 >
                   <Typography
                     variant="h6"
                     sx={{
-                      fontWeight: "medium",
-                      color: "text.primary",
+                      fontWeight: 'medium',
+                      color: 'text.primary',
                     }}
                   >
                     {tag.name}
@@ -113,9 +113,9 @@ export const TagsPresenter: FC<TagsPresenterProps> = ({
                     color="error"
                     onClick={() => onDeleteTag(tag.id)}
                     sx={{
-                      "&:hover": {
-                        bgcolor: "error.light",
-                        color: "white",
+                      '&:hover': {
+                        bgcolor: 'error.light',
+                        color: 'white',
                       },
                     }}
                   >

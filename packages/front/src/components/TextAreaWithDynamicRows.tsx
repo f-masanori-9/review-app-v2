@@ -1,7 +1,7 @@
-import React, { FC, useEffect, useRef, useState } from "react";
+import React, { type FC, useEffect, useRef, useState } from 'react';
 
 const heightToNumber = (str: string): number => {
-  return +str.replace("px", "");
+  return +str.replace('px', '');
 };
 
 const calculateRows = (textarea: HTMLTextAreaElement | null): number => {

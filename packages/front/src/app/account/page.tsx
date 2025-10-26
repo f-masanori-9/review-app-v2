@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useUser } from "@auth0/nextjs-auth0";
-import { Box, Card, CardContent, Typography, Button } from "@mui/material";
+import { useUser } from '@auth0/nextjs-auth0';
+import { Box, Button, Card, CardContent, Typography } from '@mui/material';
 
 export default function Account() {
   const { user } = useUser();
@@ -16,10 +16,10 @@ export default function Account() {
     >
       <Box
         sx={{
-          maxWidth: "28rem",
-          mx: "auto",
-          display: "flex",
-          flexDirection: "column",
+          maxWidth: '28rem',
+          mx: 'auto',
+          display: 'flex',
+          flexDirection: 'column',
           gap: 3,
         }}
       >
@@ -28,7 +28,7 @@ export default function Account() {
             <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
               アカウント情報
             </Typography>
-            <Typography sx={{ color: "text.secondary" }}>
+            <Typography sx={{ color: 'text.secondary' }}>
               メールアドレス: {user?.email}
             </Typography>
           </CardContent>
@@ -43,13 +43,13 @@ export default function Account() {
             <Button
               fullWidth
               sx={{
-                justifyContent: "flex-start",
+                justifyContent: 'flex-start',
                 py: 1,
                 px: 2,
-                color: "error.main",
-                fontWeight: "medium",
-                "&:hover": {
-                  bgcolor: "grey.100",
+                color: 'error.main',
+                fontWeight: 'medium',
+                '&:hover': {
+                  bgcolor: 'grey.100',
                 },
               }}
               href="/auth/logout"

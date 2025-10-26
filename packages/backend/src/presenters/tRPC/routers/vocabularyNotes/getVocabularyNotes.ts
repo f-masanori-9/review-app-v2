@@ -1,7 +1,7 @@
-import { z } from "zod";
+import { z } from 'zod';
 
-import { VocabularyNoteRepository } from "../../../../repositories/VocabularyNoteRepository";
-import { authRequiredProcedure } from "../../trpc";
+import { VocabularyNoteRepository } from '../../../../repositories/VocabularyNoteRepository';
+import { authRequiredProcedure } from '../../trpc';
 
 const inputSchema = z.object({});
 
@@ -17,16 +17,16 @@ const outputSchema = z.object({
         z.object({
           id: z.string(),
           createdAt: z.date(),
-        })
+        }),
       ),
       noteToTagRelations: z.array(
         z.object({
           id: z.string(),
           tagId: z.string(),
           tagName: z.string(),
-        })
+        }),
       ),
-    })
+    }),
   ),
 });
 

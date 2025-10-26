@@ -1,13 +1,18 @@
-import { FC, KeyboardEventHandler, useCallback, useState } from "react";
 import {
-  ActionMeta,
+  type FC,
+  type KeyboardEventHandler,
+  useCallback,
+  useState,
+} from 'react';
+import {
+  type ActionMeta,
   components,
-  OnChangeValue,
-  OptionProps,
-  StylesConfig,
-} from "react-select";
-import CreatableSelect from "react-select/creatable";
-import { Button } from "./Buttons/Button";
+  type OnChangeValue,
+  type OptionProps,
+  type StylesConfig,
+} from 'react-select';
+import CreatableSelect from 'react-select/creatable';
+import { Button } from './Buttons/Button';
 
 export interface AutoCompleteOption {
   readonly value: string;
@@ -21,15 +26,15 @@ export interface AutoCompleteOption {
 
 const styles: StylesConfig<AutoCompleteOption, true> = {
   multiValue: (base, state) => {
-    return state.data.isFixed ? { ...base, backgroundColor: "gray" } : base;
+    return state.data.isFixed ? { ...base, backgroundColor: 'gray' } : base;
   },
   multiValueLabel: (base, state) => {
     return state.data.isFixed
-      ? { ...base, fontWeight: "bold", color: "white", paddingRight: 6 }
+      ? { ...base, fontWeight: 'bold', color: 'white', paddingRight: 6 }
       : base;
   },
   multiValueRemove: (base, state) => {
-    return state.data.isFixed ? { ...base, display: "none" } : base;
+    return state.data.isFixed ? { ...base, display: 'none' } : base;
   },
 };
 
@@ -40,7 +45,7 @@ const orderOptions = (values: readonly AutoCompleteOption[]) => {
 };
 
 const Option = (props: OptionProps<AutoCompleteOption>) => {
-  console.log("Option", props);
+  console.log('Option', props);
   if (props.data.createButton) {
     return (
       <Button
@@ -56,7 +61,7 @@ type Props = {
   options: AutoCompleteOption[];
   onChange?: (
     value: readonly AutoCompleteOption[],
-    actionMeta: ActionMeta<AutoCompleteOption>
+    actionMeta: ActionMeta<AutoCompleteOption>,
   ) => void;
   placeholder?: string;
   defaultValueIds?: string[];
@@ -69,13 +74,13 @@ export const CreatableAutoComplete: FC<Props> = ({
   defaultValueIds = [],
   onCreateItem,
 }) => {
-  const [inputLabel, setInputLabel] = useState("");
+  const [inputLabel, setInputLabel] = useState('');
 
   const defaultValues = options.filter((v) =>
-    defaultValueIds.includes(v.value)
+    defaultValueIds.includes(v.value),
   );
   const [value, setValue] = useState<readonly AutoCompleteOption[]>(
-    orderOptions(defaultValues)
+    orderOptions(defaultValues),
   );
 
   const onCreateOption = useCallback(async () => {
@@ -86,30 +91,30 @@ export const CreatableAutoComplete: FC<Props> = ({
     };
     setValue((prev) => [...prev, option]);
     await onCreateItem(option);
-    setTimeout(() => setInputLabel(""), 10);
+    setTimeout(() => setInputLabel(''), 10);
     return option;
   }, [inputLabel, onCreateItem]);
 
   const handleKeyDown: KeyboardEventHandler = async (event) => {
     if (!inputLabel) return;
     switch (event.key) {
-      case "Enter":
-      case "Tab":
+      case 'Enter':
+      case 'Tab':
         await onCreateOption();
     }
   };
 
   const onChange = async (
     newValue: OnChangeValue<AutoCompleteOption, true>,
-    actionMeta: ActionMeta<AutoCompleteOption>
+    actionMeta: ActionMeta<AutoCompleteOption>,
   ) => {
     switch (actionMeta.action) {
-      case "select-option":
-      case "deselect-option": {
+      case 'select-option':
+      case 'deselect-option': {
         setValue(orderOptions(newValue));
         onChange_?.(newValue, actionMeta);
       }
-      case "create-option": {
+      case 'create-option': {
         if (inputLabel) {
           const option = await onCreateOption();
           onChange_?.(
@@ -117,14 +122,14 @@ export const CreatableAutoComplete: FC<Props> = ({
               if (v.label === option.label) return option;
               return v;
             }),
-            actionMeta
+            actionMeta,
           );
         }
         break;
       }
-      case "remove-value":
-      case "pop-value":
-      case "clear":
+      case 'remove-value':
+      case 'pop-value':
+      case 'clear':
         newValue = options.filter((v) => v.isFixed);
         setValue(orderOptions(newValue));
         onChange_?.(newValue, actionMeta);

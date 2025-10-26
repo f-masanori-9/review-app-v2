@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { CreatableAutoComplete } from "@/components/CreatableAutoComplete";
-import { Loading } from "@/components/Loading";
-import { useEditNoteToTagRelations } from "@/hooks/noteToTagRelation/useEditNoteToTagRelations";
+import { CreatableAutoComplete } from '@/components/CreatableAutoComplete';
+import { Loading } from '@/components/Loading';
+import { useEditNoteToTagRelations } from '@/hooks/noteToTagRelation/useEditNoteToTagRelations';
 import {
   useMutateNoteToTagRelations,
   useNoteToTagRelations,
-} from "@/hooks/noteToTagRelation/useNoteToTagRelations";
-import { useCreateTag } from "@/hooks/tag/useCreateTag";
-import { useMutateTags, useTags } from "@/hooks/tag/useTags";
-import { useMutateVocabularyNotes } from "@/hooks/vocabularyNote/useVocabularyNotes";
-import { VocabularyNote } from "../types";
+} from '@/hooks/noteToTagRelation/useNoteToTagRelations';
+import { useCreateTag } from '@/hooks/tag/useCreateTag';
+import { useMutateTags, useTags } from '@/hooks/tag/useTags';
+import { useMutateVocabularyNotes } from '@/hooks/vocabularyNote/useVocabularyNotes';
+import type { VocabularyNote } from '../types';
 
 interface TagSelectorProps {
   vocabularyNote: VocabularyNote;

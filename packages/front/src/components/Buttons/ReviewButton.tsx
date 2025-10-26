@@ -1,11 +1,12 @@
-"use client";
+'use client';
 
-import { Loading } from "@/components/Loading";
-import { Box, Button, Typography } from "@mui/material";
-import React, { FC } from "react";
-import { FaEye } from "react-icons/fa6";
-import { IoEyeOutline } from "react-icons/io5";
-import { useReward } from "react-rewards";
+import { Box, Button, Typography } from '@mui/material';
+import type React from 'react';
+import type { FC } from 'react';
+import { FaEye } from 'react-icons/fa6';
+import { IoEyeOutline } from 'react-icons/io5';
+import { useReward } from 'react-rewards';
+import { Loading } from '@/components/Loading';
 
 export const ReviewButton: FC<{
   onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
@@ -13,7 +14,7 @@ export const ReviewButton: FC<{
   isReviewed?: boolean;
   isLoading?: boolean;
 }> = ({ onClick, isReviewed, reviewCount, isLoading }) => {
-  const { reward } = useReward("rewardId", "confetti");
+  const { reward } = useReward('rewardId', 'confetti');
 
   return (
     <Button
@@ -24,7 +25,7 @@ export const ReviewButton: FC<{
       }}
       variant="text"
       disabled={isLoading || isReviewed}
-      sx={{ minWidth: "auto", p: 0 }}
+      sx={{ minWidth: 'auto', p: 0 }}
     >
       <Box display="flex" alignItems="center" gap={0.5}>
         {isLoading ? (
@@ -38,7 +39,7 @@ export const ReviewButton: FC<{
             )}
             <Typography
               variant="body2"
-              color={isReviewed ? "text.disabled" : "text.primary"}
+              color={isReviewed ? 'text.disabled' : 'text.primary'}
             >
               {reviewCount}
             </Typography>

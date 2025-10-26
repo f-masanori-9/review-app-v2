@@ -1,8 +1,7 @@
-import { z } from "zod";
-
-import { PrismaClient } from "@prisma/client";
-import { randomUUID } from "crypto";
-import { baseProcedure } from "../trpc";
+import type { PrismaClient } from '@prisma/client';
+import { randomUUID } from 'crypto';
+import { z } from 'zod';
+import { baseProcedure } from '../trpc';
 
 const inputSchema = z.object({
   auth0_sub: z.string(),
@@ -19,7 +18,7 @@ const createSampleData = async (userId: string, dbClient: PrismaClient) => {
   const basicTag = await dbClient.tag.create({
     data: {
       id: randomUUID(),
-      name: "基本単語",
+      name: '基本単語',
       order: 0,
       userId: userId,
     },
@@ -28,7 +27,7 @@ const createSampleData = async (userId: string, dbClient: PrismaClient) => {
   const greetingTag = await dbClient.tag.create({
     data: {
       id: randomUUID(),
-      name: "挨拶",
+      name: '挨拶',
       order: 1,
       userId: userId,
     },
@@ -38,8 +37,8 @@ const createSampleData = async (userId: string, dbClient: PrismaClient) => {
   const helloNote = await dbClient.vocabularyNote.create({
     data: {
       id: randomUUID(),
-      frontContent: "Hello",
-      backContent: "こんにちは",
+      frontContent: 'Hello',
+      backContent: 'こんにちは',
       userId: userId,
     },
   });
@@ -47,8 +46,8 @@ const createSampleData = async (userId: string, dbClient: PrismaClient) => {
   const thanksNote = await dbClient.vocabularyNote.create({
     data: {
       id: randomUUID(),
-      frontContent: "Thank you",
-      backContent: "ありがとう",
+      frontContent: 'Thank you',
+      backContent: 'ありがとう',
       userId: userId,
     },
   });
@@ -56,8 +55,8 @@ const createSampleData = async (userId: string, dbClient: PrismaClient) => {
   const goodbyeNote = await dbClient.vocabularyNote.create({
     data: {
       id: randomUUID(),
-      frontContent: "Goodbye",
-      backContent: "さようなら",
+      frontContent: 'Goodbye',
+      backContent: 'さようなら',
       userId: userId,
     },
   });
@@ -118,8 +117,8 @@ export const afterAuth0Authentication = baseProcedure
     }) => {
       const user = {
         id: randomUUID(),
-        name: "未設定", // Placeholder name, can be updated later
-        email: "", // Placeholder email, can be updated later
+        name: '未設定', // Placeholder name, can be updated later
+        email: '', // Placeholder email, can be updated later
       };
       await ctx.dbClient.$transaction(async () => {
         await ctx.dbClient.user.create({

@@ -17,8 +17,8 @@ export class NoteToTagRelation {
   static createNew(
     params: Omit<
       ExcludeMethods<NoteToTagRelation>,
-      "id" | "createdAt" | "updatedAt"
-    >
+      'id' | 'createdAt' | 'updatedAt'
+    >,
   ) {
     return new NoteToTagRelation({
       id: crypto.randomUUID(),

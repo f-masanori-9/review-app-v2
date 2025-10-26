@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { Box, DialogContent } from "@mui/material";
-import { useState } from "react";
+import { Box, DialogContent } from '@mui/material';
+import { useState } from 'react';
 
-import { useNoteToTagRelations } from "@/hooks/noteToTagRelation/useNoteToTagRelations";
-import { useUpdateVocabularyNoteDebounced } from "@/hooks/useUpdateVocabularyNoteDebounced";
-import { ContentField } from "./ContentField";
-import { TagSelector } from "./TagSelector";
-import { VocabularyNote } from "../types";
+import { useNoteToTagRelations } from '@/hooks/noteToTagRelation/useNoteToTagRelations';
+import { useUpdateVocabularyNoteDebounced } from '@/hooks/useUpdateVocabularyNoteDebounced';
+import type { VocabularyNote } from '../types';
+import { ContentField } from './ContentField';
+import { TagSelector } from './TagSelector';
 
 interface VocabularyNoteFormProps {
   vocabularyNote: VocabularyNote;
@@ -22,13 +22,13 @@ export function VocabularyNoteForm({
   });
 
   const [content, setContent] = useState({
-    frontContent: vocabularyNote?.frontContent || "",
-    backContent: vocabularyNote?.backContent || "",
+    frontContent: vocabularyNote?.frontContent || '',
+    backContent: vocabularyNote?.backContent || '',
   });
 
   const handleContentChange = (
-    kind: "frontContent" | "backContent",
-    newContent: string
+    kind: 'frontContent' | 'backContent',
+    newContent: string,
   ) => {
     setContent((prev) => ({
       ...prev,
@@ -43,7 +43,7 @@ export function VocabularyNoteForm({
 
   return (
     <DialogContent sx={{ p: 0.5 }}>
-      <Box sx={{ height: "40px", mb: 0.5 }}>
+      <Box sx={{ height: '40px', mb: 0.5 }}>
         <TagSelector
           vocabularyNote={vocabularyNote}
           isLoading={isLoadingNoteToTagRelations}
@@ -51,13 +51,13 @@ export function VocabularyNoteForm({
       </Box>
       <ContentField
         value={content.frontContent}
-        onChange={(value) => handleContentChange("frontContent", value)}
+        onChange={(value) => handleContentChange('frontContent', value)}
         placeholder="表面"
         rows={2}
       />
       <ContentField
         value={content.backContent}
-        onChange={(value) => handleContentChange("backContent", value)}
+        onChange={(value) => handleContentChange('backContent', value)}
         placeholder="裏面"
         rows={5}
       />

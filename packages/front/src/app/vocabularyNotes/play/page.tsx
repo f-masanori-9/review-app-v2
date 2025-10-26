@@ -1,53 +1,85 @@
-"use client";
+'use client';
 
-import { Loading } from "@/components/Loading";
-import { useMemo, useState } from "react";
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useCallback, useMemo } from 'react';
 
-import { useVocabularyNotesSWRImmutable } from "@/hooks/vocabularyNote/useVocabularyNotes";
-import { useSearchParams } from "next/navigation";
+import type { AutoCompleteOption } from '@/components/CreatableAutoComplete';
+import { Loading } from '@/components/Loading';
+import { useCreateTag } from '@/hooks/tag/useCreateTag';
+import { useTags } from '@/hooks/tag/useTags';
+import { useVocabularyNotesSWRImmutable } from '@/hooks/vocabularyNote/useVocabularyNotes';
 
 import {
-  VocabularyNotesPlayPresentation,
   type VocabularyNote,
-} from "./_presentations/VocabularyNotesPlayPresentation";
+  VocabularyNotesPlayPresentation,
+} from './_presentations/VocabularyNotesPlayPresentation';
+import { BackContentProvider } from './context/BackContentContext';
 
 const useFilteredVocabularyNotes = (
   vocabularyNotes: VocabularyNote[],
-  tagIds: string[]
+  tagIds: string[],
 ) => {
   return useMemo(() => {
     return vocabularyNotes.filter((note) => {
       if (tagIds.length === 0) return true;
       return note.noteToTagRelations.some((relation) =>
-        tagIds.includes(relation.tagId)
+        tagIds.includes(relation.tagId),
       );
     });
   }, [vocabularyNotes, tagIds]);
 };
 
 const Page = () => {
+  // TODO: noteのIdの配列のみを取得するようにする
   const { data: vocabularyNotes = [], isLoading } =
     useVocabularyNotesSWRImmutable();
+
+  const { data: tags = [] } = useTags();
+  const { createTagWithId } = useCreateTag();
+  const router = useRouter();
   const searchParams = useSearchParams();
-  const tagIds = searchParams.getAll("tagIds");
+
+  const tagIds = searchParams.getAll('tagIds');
   const viewedVocabularyNotes = useFilteredVocabularyNotes(
     vocabularyNotes,
-    tagIds
+    tagIds,
+  );
+  const viewedVocabularyNoteIds = useMemo(() => {
+    return viewedVocabularyNotes.map((note) => note.id);
+  }, [viewedVocabularyNotes]);
+  const handleTagChange = useCallback(
+    (selected: readonly AutoCompleteOption[]) => {
+      const queryParams = new URLSearchParams();
+      selected.forEach((s) => queryParams.append('tagIds', s.value));
+      router.push(`/vocabularyNotes/play?${queryParams.toString()}`);
+    },
+    [router],
   );
 
-  const [selectedVN, setSelectedVN] = useState<{ id: string } | null>(null);
+  const handleCreateTag = useCallback(
+    async (option: AutoCompleteOption) => {
+      createTagWithId({
+        tagId: option.value,
+        tagName: option.label,
+      });
+    },
+    [createTagWithId],
+  );
 
   if (isLoading) {
     return <Loading />;
   }
 
   return (
-    <VocabularyNotesPlayPresentation
-      viewedVocabularyNotes={viewedVocabularyNotes}
-      selectedVN={selectedVN}
-      onEdit={(id) => setSelectedVN({ id })}
-      onCloseEdit={() => setSelectedVN(null)}
-    />
+    <BackContentProvider>
+      <VocabularyNotesPlayPresentation
+        viewedVocabularyNoteIds={viewedVocabularyNoteIds}
+        selectedTagIds={tagIds}
+        tags={tags}
+        onTagChange={handleTagChange}
+        onCreateTag={handleCreateTag}
+      />
+    </BackContentProvider>
   );
 };
 
