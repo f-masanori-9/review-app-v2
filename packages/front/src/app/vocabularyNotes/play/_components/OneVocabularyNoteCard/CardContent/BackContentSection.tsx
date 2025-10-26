@@ -74,7 +74,7 @@ export const BackContentSection: React.FC<BackContentSectionProps> = ({
               outline: 'none',
               resize: 'none',
               fontFamily: 'inherit',
-              fontSize: '0.875rem',
+              fontSize: '16px',
               color: 'inherit',
               background: 'transparent',
             }}
