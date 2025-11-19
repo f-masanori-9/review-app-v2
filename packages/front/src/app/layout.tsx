@@ -11,6 +11,7 @@ import { Footer } from './footer';
 import './globals.css';
 import { Header } from './header';
 import theme from './theme';
+import { VirtualKeyboardSetup } from './VirtualKeyboardSetup';
 
 const roboto = Roboto({
   weight: ['300', '400', '500', '700'],
@@ -59,6 +60,7 @@ export default async function RootLayout({
         }}
         className={`${geistSans.variable} ${geistMono.variable}`}
       >
+        <VirtualKeyboardSetup />
         <SWRConfig
           value={{
             revalidateOnFocus: false,
